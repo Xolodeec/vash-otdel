@@ -19,7 +19,7 @@ ul, ol, p, h1, h2, h3, h4{
     padding: 0;
 }
 
-input{
+input, textarea{
     font-size: 14px !important;
 }
 
@@ -274,6 +274,22 @@ input{
     font-weight: 400;
     font-size: 14px;
     color: #475467;
+}
+
+.column-btn{
+    width: 90px;
+}
+
+.column-btn a{
+    color: #344054;
+}
+
+.column-btn a:hover:first-child{
+    color: #5199c3;
+}
+
+.column-btn a:hover:last-child{
+    color: #d92d55;
 }
 
 @media (max-width: 767px) {

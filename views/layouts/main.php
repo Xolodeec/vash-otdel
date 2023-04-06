@@ -53,6 +53,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     </li>
                     <li class="row g-0">
                         <div class="col-1" style="margin-right: 20px">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <div class="col">
+                            <a href="<?= \yii\helpers\Url::to('/service') ?>"> Мои товары</a>
+                        </div>
+                    </li>
+                    <li class="row g-0">
+                        <div class="col-1" style="margin-right: 20px">
                             <i class="fa-solid fa-address-card"></i>
                         </div>
                         <div class="col">

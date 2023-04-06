@@ -6,6 +6,7 @@ use app\models\bitrix\Bitrix;
 use app\models\bitrix\crm\requisite\Requisite;
 use app\models\school\School;
 use Tightenco\Collect\Support\Collection;
+use Yii;
 use yii\base\Model;
 use function Symfony\Component\String\u;
 
@@ -65,6 +66,7 @@ class SignUpForm extends Model
         $company->im[] = ['VALUE' => $this->telegramPhone, 'VALUE_TYPE' => 'TELEGRAM'];
         $company->password = \Yii::$app->security->generatePasswordHash($password);
         $company->tokenReferral = md5("{$password}:{$uniqId}");
+        $company->referralLink = Yii::$app->request->hostInfo . "/forms/order?token={$company->tokenReferral}";
 
         $requisite = new Requisite;
         $requisite->presetId = $this->typeCompany;

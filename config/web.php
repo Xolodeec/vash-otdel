@@ -62,6 +62,8 @@ $config = [
                 '/<controller:profile>' => 'profile/index',
                 '/<controller:profile>/<action:(index|service|requisite|bank-detail)>' => 'profile/<action>',
                 '/<controller:profile>/<action:(create|edit|delete)>' => 'profile/<action>',
+                '/<controller:service>' => 'service/index',
+                '/<controller:service>/<action:(index|create|edit|delete)>' => 'service/<action>',
                 '<module>/<controller>/<acttion>' => '<module>/<controller>/<acttion>',
             ],
         ],

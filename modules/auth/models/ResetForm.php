@@ -5,6 +5,7 @@ namespace app\modules\auth\models;
 use app\models\bitrix\Bitrix;
 use app\models\school\School;
 use Tightenco\Collect\Support\Collection;
+use Yii;
 use yii\base\Model;
 
 class ResetForm extends Model
@@ -48,6 +49,7 @@ class ResetForm extends Model
         $company = School::findByPhone($this->phone);
         $company->password = \Yii::$app->security->generatePasswordHash($password);
         $company->tokenReferral = md5("{$password}:{$uniqId}");
+        $company->referralLink = Yii::$app->request->hostInfo . "/forms/order?token={$company->tokenReferral}";
 
         $commands->put('company_update', $bitrix->buildCommand('crm.company.update', ['ID' => $company->id, 'fields' => $company::getParamsField($company)]));
         $commands->put('start_bizproc', $bitrix->buildCommand('bizproc.workflow.start', [
