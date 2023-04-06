@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body{
+    font-family: 'Inter', sans-serif;
+    background: #F9FAFB;
+    line-height: 24px;
+    font-size: 16px;
+    color: #101828;
+    font-weight: 600;
+}
+
+a{
+    text-decoration: none;
+}
+
+ul, ol, p, h1, h2, h3, h4{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+input{
+    font-size: 14px !important;
+}
+
+.wrapper-form{
+    background: #fff;
+    padding: 25px;
+    font-size: 14px;
+}
+
+.wrapper-form h4{
+    color: #475467;
+}
+
+.wrapper-auth{
+    width: 380px;
+}
+
+.auth-toolbar{
+    color: #475467;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.auth-toolbar a{
+    color: #707070;
+    text-decoration: none;
+}
+
+.auth-toolbar a:hover{
+    text-decoration: underline;
+}
+
+#main{
+    background: #fff;
+}
+
+.content{
+    width: 100%;
+    padding: 32px;
+}
+
+.sidebar{
+    border-right: 1px solid #EAECF0;
+    padding: 0 16px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.navigation{
+    margin-top: 25px;
+}
+
+.navigation li{
+    padding: 8px 15px;
+    margin: 4px 0;
+    border-radius: 6px;
+}
+
+.navigation li:hover{
+    background: #F9FAFB;
+}
+
+.navigation a{
+    color: #344054;
+}
+
+.navigation a:hover{
+    color: #101828;
+}
+
+.navigation li i{
+    margin-right: 10px;
+}
+
+.wrapper-block{
+    background: #FFFFFF;
+    border: 1px solid #EAECF0;
+    box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+    border-radius: 12px;
+}
+
+.default-table{
+    width: 100%;
+    font-size: 14px;
+}
+
+.default-table thead th{
+    font-style: normal;
+    font-weight: 600;
+    color: #101828;
+}
+
+.default-table tbody td{
+    color: #475467;
+    font-weight: 400;
+}
+
+.default-table thead tr, .default-table tbody tr{
+    border-bottom: 1px solid #EAECF0;
+}
+
+.default-table tbody tr:last-child{
+    border-bottom: none;
+}
+
+.default-table thead th, .default-table tbody td{
+    padding: 13px 24px;
+}
+
+.wrapper-block footer{
+    border-top: 1px solid #EAECF0;
+    padding: 12px 24px;
+}
+
+.bg-blue{
+    background: #EFF8FF;
+    color: #175CD3;
+    padding: 2px 8px;
+    border-radius: 16px;
+}
+
+.column-small{
+    width: 50px;
+}
+
+.up-pagination li{
+    box-sizing: border-box;
+    padding: 8px 14px;
+    background: #FFFFFF;
+    border: 1px solid #D0D5DD;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    border-radius: 8px;
+}
+
+.up-pagination li a{
+    color: #344054;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.up-prev{
+    margin-right: 20px;
+}
+
+.up-next{
+    margin-left: 20px;
+}
+
+.up-page{
+    margin-right: 10px;
+}
+
+.page-item:hover{
+    background: #f1f1f1;
+}
+
+.up-pagination li:nth-last-child(-n+2){
+    margin-right: 0;
+}
+
+.up-pagination .active{
+    background: #ECFDF3;
+}
+
+.up-pagination .active .a{
+    color: #027A48;
+}
+
+.grey-wrapper{
+    padding: 14px;
+    background: #F9FAFB;
+    border-radius: 12px;
+    color: #344054;
+    font-size: 14px;
+}
+
+.breadcrumb{
+    border-bottom: 1px solid #EAECF0;
+    padding-bottom: 20px;
+}
+
+.breadcrumb a, .breadcrumb{
+    color: #475467 !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+}
+
+.breadcrumb li{
+    padding: 4px 8px;
+}
+
+.breadcrumb li.active{
+    background: #F9FAFB;
+    border-radius: 6px;
+}
+
+.user-block{
+    position: absolute;
+    bottom: 32px;
+}
+
+@media (min-width: 767px) {
+    .inner{
+        width: 100%;
+        display: -webkit-flex;
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .content{
+        margin-left: 250px;
+    }
+
+    .sidebar{
+        position: fixed;
+        min-height: 100vh;
+        background: #fff;
+        width: 250px;
+    }
+
+}
+
+.user-block{
+    font-size: 14px;
+    display: flex;
+}
+
+.profile-form-block{
+    margin-top: 30px;
+}
+
+.profile-form-block header{
+    border-bottom: 1px solid #EAECF0;
+    padding: 20px 0;
+}
+
+.profile-form-block header h4{
+    font-weight: 600;
+    font-size: 18px;
+    color: #101828;
+}
+
+.profile-form-block header p{
+    font-weight: 400;
+    font-size: 14px;
+    color: #475467;
+}
+
+.company-info{
+     margin-top: 15px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #475467;
+}
+
+@media (max-width: 767px) {
+    .sidebar{
+        position: fixed;
+        width: 100%;
+        height: 100px;
+        top: 0;
+    }
+
+    .content{
+        margin-top: 100px;
+    }
+}
