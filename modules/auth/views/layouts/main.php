@@ -34,6 +34,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <div class="d-flex flex-column min-vh-100 min-vw-100">
         <div class="d-flex flex-grow-1 justify-content-center align-items-center">
             <div class="wrapper-auth">
+                <div class="logo">
+                    <img src="/src/logo.svg" class="img-fluid">
+                </div>
                 <?= $content ?>
             </div>
         </div>
