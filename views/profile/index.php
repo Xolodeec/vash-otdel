@@ -40,8 +40,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($model, 'id')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'inn', ['options' => ['class' => 'form-floating mb-3 w-25']])->textInput(); ?>
-    <?= $form->field($model, 'ogrn', ['options' => ['class' => 'form-floating mb-3 w-25']])->textInput(); ?>
+    <?php if($model->presetId == 1) : ?>
+    <?= $form->field($model, 'directorName', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
+    <?php endif; ?>
+
+    <?= $form->field($model, 'inn', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
+    <?= $form->field($model, 'ogrn', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
     <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
 
     <?php $form::end() ?>
@@ -65,10 +69,62 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model->bankDetails, 'id')->hiddenInput()->label(false) ?>
     <?= $form->field($model->bankDetails, 'entityId')->hiddenInput(['value' => $model->id])->label(false) ?>
 
-    <?= $form->field($model->bankDetails, 'title', ['options' => ['class' => 'form-floating mb-3 w-25']])->textInput(); ?>
-    <?= $form->field($model->bankDetails, 'bik', ['options' => ['class' => 'form-floating mb-3 w-25']])->textInput(); ?>
-    <?= $form->field($model->bankDetails, 'accNum', ['options' => ['class' => 'form-floating mb-3 w-25']])->textInput(); ?>
-    <?= $form->field($model->bankDetails, 'corAccNum', ['options' => ['class' => 'form-floating mb-3 w-25']])->textInput(); ?>
+    <?= $form->field($model->bankDetails, 'title', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
+    <?= $form->field($model->bankDetails, 'bik', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
+    <?= $form->field($model->bankDetails, 'accNum', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
+    <?= $form->field($model->bankDetails, 'corAccNum', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
+
+    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+
+    <?php $form::end() ?>
+</article>
+
+<article class="profile-form-block">
+    <header>
+        <h4>Фактический адрес</h4>
+        <p>Укажите фактический адрес</p>
+    </header>
+
+    <?php $form = ActiveForm::begin([
+        'id' => 'bank-details-form',
+        'action' => '/profile/address',
+        'fieldConfig' => [
+            'enableClientValidation' => false,
+            'template' => "{input}{label}",
+        ],
+    ]) ?>
+
+    <?= $form->field($model->actualAddress, 'typeId')->hiddenInput()->label(false) ?>
+    <?= $form->field($model->actualAddress, 'entityTypeId')->hiddenInput()->label(false) ?>
+    <?= $form->field($model->actualAddress, 'entityId')->hiddenInput(['value' => $model->id])->label(false) ?>
+
+    <?= $form->field($model->actualAddress, 'address1', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
+
+    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+
+    <?php $form::end() ?>
+</article>
+
+<article class="profile-form-block">
+    <header>
+        <h4>Юридический адрес</h4>
+        <p>Укажите юридический адрес</p>
+    </header>
+
+    <?php $form = ActiveForm::begin([
+        'id' => 'bank-details-form',
+        'action' => '/profile/address',
+        'fieldConfig' => [
+            'enableClientValidation' => false,
+            'template' => "{input}{label}",
+        ],
+    ]) ?>
+
+    <?= $form->field($model->legalAddress, 'typeId')->hiddenInput()->label(false) ?>
+    <?= $form->field($model->legalAddress, 'entityTypeId')->hiddenInput()->label(false) ?>
+    <?= $form->field($model->legalAddress, 'entityId')->hiddenInput(['value' => $model->id])->label(false) ?>
+
+    <?= $form->field($model->legalAddress, 'address1', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
 
     <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
 

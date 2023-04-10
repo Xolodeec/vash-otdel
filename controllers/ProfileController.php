@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\bitrix\crm\requisite\Address;
 use app\models\profile\Requisite;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -17,7 +18,7 @@ class ProfileController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['index', 'service', 'requisite', 'bank-detail', 'edit', 'create', 'delete'],
+                        'actions' => ['index', 'service', 'requisite', 'bank-detail', 'edit', 'create', 'delete', 'address'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -58,5 +59,18 @@ class ProfileController extends Controller
         }
 
         return $this->redirect('/profile');
+    }
+
+    public function actionAddress()
+    {
+        $model = new Address();
+
+        if(\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post()) && $model->validate())
+        {
+            $model->save();
+        }
+
+        return $this->redirect('/profile');
+
     }
 }

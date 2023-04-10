@@ -15,8 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <tr>
             <th class="text-center column-small">#</th>
             <th>Название сделки</th>
+            <th>Товар</th>
+            <th>Статус</th>
             <th>Сумма</th>
-            <th>Стадия</th>
         </tr>
         </thead>
         <tbody>
@@ -25,13 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <tr>
                 <td class="text-center"><span class="bg-blue"><?= $index ?><span></td>
                 <td><?= $order->title ?></td>
+                <td><?= $order->product->title ?></td>
+                <td><?= $order->_stages[$order->stageId] ?></td>
                 <td><?= $order->opportunity ?></td>
-                <td><?= $order->stageId ?></td>
             </tr>
         <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td class="text-center" colspan="4">Ничего не найдено</td>
+                <td class="text-center" colspan="5">Ничего не найдено</td>
             </tr>
         <?php endif; ?>
         </tbody>

@@ -16,6 +16,7 @@ class Requisite extends Model
     public $inn;
     public $ogrn;
     public $name;
+    public $directorName;
 
     use Collector;
 
@@ -23,7 +24,7 @@ class Requisite extends Model
     {
         return [
             [['id', 'entityTypeId', 'entityId', 'presetId'], 'number'],
-            [['dateCreate', 'inn', 'ogrn', 'name'], 'string'],
+            [['dateCreate', 'inn', 'ogrn', 'name', 'directorName'], 'string'],
         ];
     }
 
@@ -38,6 +39,7 @@ class Requisite extends Model
             'RQ_INN' => 'inn',
             'RQ_OGRN' => 'ogrn',
             'NAME' => 'name',
+            'RQ_DIRECTOR' => 'directorName',
         ];
     }
 

@@ -23,7 +23,7 @@ class Product extends Model
     {
         return [
             [['id', 'catalogId', 'sectionId'], 'number'],
-            [['name', 'description', 'currencyId', 'price'], 'string'],
+            [['name', 'description', 'currencyId'], 'string'],
             [['price'], 'filter', 'filter' => function($item){
                 return u($item)->replace(',', '.')->toString();
             }],

@@ -4,9 +4,11 @@ namespace app\models\order;
 
 use app\models\bitrix\Bitrix;
 use app\models\bitrix\crm\Deal;
+use app\models\bitrix\crm\Product;
 use app\models\student\Student;
 use Tightenco\Collect\Support\Collection;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
 class OrderForm extends Model
 {
@@ -37,30 +39,44 @@ class OrderForm extends Model
             'start' => $model->page * 50,
         ];
 
-        /*
-        if($params->has('OrderForm') && $model->load($params->toArray()))
-        {
-            if(!empty($model->name)) $paramsRequest['filter']['%NAME'] = $model->name;
-            if(!empty($model->lastName)) $paramsRequest['filter']['%LAST_NAME'] = $model->lastName;
-        }
-        */
-
         $bitrix = new Bitrix;
 
-        $response = $bitrix->request('crm.deal.list', $paramsRequest);
+        $command['get_deal'] = $bitrix->buildCommand('crm.deal.list', $paramsRequest);
+        $command['get_stages'] = $bitrix->buildCommand('crm.status.list', ['filter' => ['CATEGORY_ID' => 0, 'ENTITY_ID' => 'DEAL_STAGE']]);
 
-        if($model->validate() && $response['total'] > 0)
+        ['result' => $response] = $bitrix->batchRequest($command);
+
+        if($model->validate() && $response['result_total']['get_deal'] > 0)
         {
-            $model->amountOrder = $response['total'];
-            $model->orders = Deal::multipleCollect(Deal::class, $response['result']);
+            $model->amountOrder = $response['result_total']['get_deal'];
+            $model->orders = Order::multipleCollect(Order::class, $response['result']['get_deal']);
 
             if(!empty($model->orders))
             {
                 $orders = new Collection();
 
-                foreach ($model->orders as $index => $student)
+                foreach ($model->orders as $index => $order)
                 {
-                    $orders->put($index + ($model->page * 50) + 1, $student);
+                    $order->_stages = ArrayHelper::map($response['result']['get_stages'], 'STATUS_ID', 'NAME');
+
+                    $orders->put($index + ($model->page * 50) + 1, $order);
+                    $commandsGetProduct[$order->id] = $bitrix->buildCommand('crm.deal.productrows.get', ['id' => $order->id]);
+                }
+
+                ['result' => ['result' => $products]] = $bitrix->batchRequest($commandsGetProduct);
+                $products = collect($products)->flatten(1)->toArray();
+                $products = collect(ProductRow::multipleCollect(ProductRow::class, $products));
+
+                foreach ($model->orders as $index => &$order)
+                {
+                    $indexProductDeal = $products->search(function ($item) use($order){
+                        return $item->ownerId == $order->id;
+                    });
+
+                    if($indexProductDeal !== false)
+                    {
+                        $order->product = $products->get($indexProductDeal);
+                    }
                 }
 
                 $model->orders = $orders->toArray();
