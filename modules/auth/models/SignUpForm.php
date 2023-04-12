@@ -18,17 +18,24 @@ class SignUpForm extends Model
     public $ogrn;
     public $phone;
     public $telegramPhone;
+    public $ogrnIp;
 
     public function rules()
     {
         return [
             [['typeCompany'], 'number'],
-            [['titleCompany', 'inn', 'ogrn', 'phone', 'telegramPhone'], 'string'],
+            [['titleCompany', 'inn', 'ogrn', 'phone', 'telegramPhone', 'ogrnIp'], 'string'],
+            [['titleCompany', 'inn', 'ogrn', 'phone', 'telegramPhone', 'ogrnIp'], 'filter', 'filter' => function($item){
+                return u($item)->trim()->toString();
+            }],
             [['phone', 'telegramPhone'], 'filter', 'filter' => function($item){
                 return preg_replace('/[^0-9+]/', '', $item);
             }],
             ['phone', 'validationPhone'],
-            //[['typeCompany', 'titleCompany', 'inn', 'ogrn', 'phone', 'telegramPhone'], 'required'],
+            [['typeCompany', 'titleCompany', 'phone', 'telegramPhone'], 'required'],
+            ['inn', 'validationInn'],
+            ['ogrn', 'validationOgrn'],
+            ['ogrnIp', 'validationOgrnIp'],
         ];
     }
 
@@ -41,7 +48,37 @@ class SignUpForm extends Model
             'ogrn' => 'ОГРН',
             'phone' => 'Телефон',
             'telegramPhone' => 'Телеграм',
+            'ogrnIp' => 'ОГРНИП',
         ];
+    }
+
+    public function validationInn($attribute)
+    {
+        if($this->typeCompany == 1 && u($this->$attribute)->length() !== 10)
+        {
+            $this->addError($attribute, 'ИНН должен состоять из 10 цифр');
+        }
+
+        if(($this->typeCompany == 2) && u($this->$attribute)->length() !== 12)
+        {
+            $this->addError($attribute, 'ИНН должен состоять из 12 цифр');
+        }
+    }
+
+    public function validationOgrn($attribute)
+    {
+        if($this->typeCompany == 1 && u($this->$attribute)->length() !== 13 && !empty($this->$attribute))
+        {
+            $this->addError($attribute, 'ОГРН должен состоять из 13 цифр');
+        }
+    }
+
+    public function validationOgrnIp($attribute)
+    {
+        if($this->typeCompany == 2 && u($this->$attribute)->length() !== 15 && !empty($this->$attribute))
+        {
+            $this->addError($attribute, 'ОГРНИП должен состоять из 15 цифр');
+        }
     }
 
     public function validationPhone($attribute)
@@ -75,6 +112,7 @@ class SignUpForm extends Model
         $requisite->entityTypeId = 4;
         $requisite->entityId = '$result[company_add]';
         $requisite->name = $this->titleCompany;
+        if($this->typeCompany == 2) $requisite->ogrnIp = $this->ogrnIp;
 
         $commands->put('company_add', $bitrix->buildCommand('crm.company.add', ['fields' => $company::getParamsField($company)]));
         $commands->put('requisite_add', $bitrix->buildCommand('crm.requisite.add', ['fields' => $requisite::getParamsField($requisite)]));

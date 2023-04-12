@@ -12,6 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="grey-wrapper">
     <?php $form = ActiveForm::begin([
+        'id' => 'students-form',
         'method' => 'GET',
         'action' => \yii\helpers\Url::to('/students'),
         'fieldConfig' => [
@@ -19,13 +20,13 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     <div class="row">
-        <div class="col-2">
+        <div class="col-auto">
             <?= $form->field($model, 'lastName', ['options' => ['class' => 'mb-0']])->textInput(['placeholder' => $model->getAttributeLabel('lastName')]); ?>
         </div>
-        <div class="col-2">
+        <div class="col-auto">
             <?= $form->field($model, 'name', ['options' => ['class' => 'mb-0']])->textInput(['placeholder' => $model->getAttributeLabel('name')]); ?>
         </div>
-        <div class="col d-flex align-items-end">
+        <div class="col-auto d-flex align-items-end">
             <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
         </div>
     </div>

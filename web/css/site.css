@@ -302,6 +302,10 @@ input, textarea{
     width: 60%;
 }
 
+.hide-block{
+    display: none;
+}
+
 @media (min-width: 767px) {
     .inner{
         width: 100%;
@@ -332,9 +336,30 @@ input, textarea{
     .sidebar .logo{
         margin-top: 32px;
     }
+
+    #create-product-form input,#create-product-form textarea, #edit-product-form input, #edit-product-form textarea{
+        width: 25%;
+    }
 }
 
 @media (max-width: 767px) {
+    #students-form div{
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    #students-form div:last-child{
+        margin-bottom: 0 !important;
+    }
+
+    #create-product-form input,#create-product-form textarea, #edit-product-form input, #edit-product-form textarea{
+        width: 100%;
+    }
+
+    .content{
+        min-height: 100vh;
+    }
+
     .profile-form-block input{
         width: 100%;
     }

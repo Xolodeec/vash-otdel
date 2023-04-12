@@ -22,9 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
 
-        <?= $form->field($model, 'name', ['options' => ['class' => 'form-floating mb-3 w-25']])->textInput(); ?>
-        <?= $form->field($model, 'description', ['options' => ['class' => 'form-floating mb-3 w-25']])->textarea(); ?>
-        <?= $form->field($model, 'price', ['options' => ['class' => 'form-floating mb-3 w-25']])->textInput(); ?>
+        <?= $form->field($model, 'name', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
+        <?= $form->field($model, 'description', ['options' => ['class' => 'form-floating mb-3']])->textarea(); ?>
+        <?= $form->field($model, 'price', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
 
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
 

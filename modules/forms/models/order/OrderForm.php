@@ -19,6 +19,7 @@ class OrderForm extends Model
     public $lastName;
     public $productId;
     public $phone;
+    public $isAgree;
 
     private $company;
     private $products;
@@ -27,7 +28,10 @@ class OrderForm extends Model
     {
         return [
             [['name', 'secondName', 'lastName'], 'string'],
+            [['name', 'lastName', 'phone', 'productId', 'isAgree'], 'required'],
+            ['isAgree', 'compare', 'compareValue'=> 1, 'message' => ""],
             [['productId'], 'number'],
+            [['isAgree'], 'boolean'],
             [['phone'], 'filter', 'filter' => function($item){
                 return preg_replace('/[^0-9+]/', '', $item);
             }],
@@ -42,6 +46,7 @@ class OrderForm extends Model
             'lastName' => 'Фамилия',
             'phone' => 'Телефон',
             'productId' => 'Товар',
+            'isAgree' => 'Я согласен на обработку персональных данных',
         ];
     }
 
@@ -134,5 +139,10 @@ class OrderForm extends Model
         ]));
 
         $bitrix->batchRequest($commands->toArray());
+    }
+
+    public function getLinkAgree()
+    {
+        return \Yii::$app->request->hostInfo . '/src/politica.pdf';
     }
 }

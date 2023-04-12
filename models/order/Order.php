@@ -8,4 +8,5 @@ class Order extends Deal
 {
     public $product;
     public $_stages;
+    public $contact;
 }

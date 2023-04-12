@@ -20,6 +20,7 @@ class Requisite extends \app\models\bitrix\crm\requisite\Requisite
             'inn' => 'ИНН',
             'ogrn' => 'ОГРН',
             'directorName' => 'ФИО Ген.дира',
+            'ogrnIp' => 'ОГРНИП',
         ];
     }
 

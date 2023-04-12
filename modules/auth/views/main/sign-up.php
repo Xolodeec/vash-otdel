@@ -17,10 +17,11 @@ $this->title = "Регистрация";
         ],
     ]) ?>
 
-    <?= $form->field($model, 'typeCompany', ['options' => ['class' => 'form-floating mb-3']])->dropDownList(\yii\helpers\ArrayHelper::map($presets, 'id', 'name')); ?>
+    <?= $form->field($model, 'typeCompany', ['options' => ['class' => 'form-floating mb-3 type-company-select']])->dropDownList(\yii\helpers\ArrayHelper::map($presets, 'id', 'name'), ['prompt' => 'Выберите тип']); ?>
     <?= $form->field($model, 'titleCompany', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
-    <?= $form->field($model, 'inn', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
-    <?= $form->field($model, 'ogrn', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
+    <?= $form->field($model, 'inn', ['options' => ['class' => 'form-floating mb-3 inn']])->textInput(); ?>
+    <?= $form->field($model, 'ogrn', ['options' => ['class' => 'form-floating mb-3 hide-block ogrn']])->textInput(); ?>
+    <?= $form->field($model, 'ogrnIp', ['options' => ['class' => 'form-floating mb-3 hide-block ogrnIp']])->textInput(); ?>
     <?= $form->field($model, 'phone', ['options' => ['class' => 'form-floating mb-3']])->widget(\yii\widgets\MaskedInput::class, [
         'mask' => '+7 (999) 999 99 99',
     ]); ?>

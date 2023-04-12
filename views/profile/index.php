@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </ul>
 </article>
 
-
+<?php if($model->presetId != 3) : ?>
 <article class="profile-form-block">
     <header>
         <h4>Реквизиты компании</h4>
@@ -45,11 +45,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php endif; ?>
 
     <?= $form->field($model, 'inn', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
+
+    <?php if($model->presetId == 1) : ?>
     <?= $form->field($model, 'ogrn', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
+    <?php else: ?>
+    <?= $form->field($model, 'ogrnIp', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
+    <?php endif; ?>
+
     <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
 
     <?php $form::end() ?>
 </article>
+<?php endif; ?>
 
 <article class="profile-form-block">
     <header>

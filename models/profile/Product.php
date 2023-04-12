@@ -6,6 +6,15 @@ class Product extends \app\models\bitrix\crm\Product
 {
     public $companyId;
 
+    public function attributeLabels()
+    {
+        return [
+            'name' => 'Название',
+            'description' => 'Описание',
+            'price' => 'Стоимость',
+        ];
+    }
+
     public function rules()
     {
         $rules = collect(parent::rules());

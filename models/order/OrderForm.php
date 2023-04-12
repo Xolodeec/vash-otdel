@@ -3,6 +3,7 @@
 namespace app\models\order;
 
 use app\models\bitrix\Bitrix;
+use app\models\bitrix\crm\Contact;
 use app\models\bitrix\crm\Deal;
 use app\models\bitrix\crm\Product;
 use app\models\student\Student;
@@ -61,11 +62,16 @@ class OrderForm extends Model
 
                     $orders->put($index + ($model->page * 50) + 1, $order);
                     $commandsGetProduct[$order->id] = $bitrix->buildCommand('crm.deal.productrows.get', ['id' => $order->id]);
+                    $commandsGetContact[$order->id] = $bitrix->buildCommand('crm.contact.get', ['id' => $order->contactId]);
                 }
 
                 ['result' => ['result' => $products]] = $bitrix->batchRequest($commandsGetProduct);
+                ['result' => ['result' => $contacts]] = $bitrix->batchRequest($commandsGetContact);
+
                 $products = collect($products)->flatten(1)->toArray();
                 $products = collect(ProductRow::multipleCollect(ProductRow::class, $products));
+
+                $contacts = collect(Contact::multipleCollect(Contact::class, $contacts));
 
                 foreach ($model->orders as $index => &$order)
                 {
@@ -73,9 +79,18 @@ class OrderForm extends Model
                         return $item->ownerId == $order->id;
                     });
 
+                    $indexContactDeal = $contacts->search(function ($item) use($order){
+                        return $item->id == $order->contactId;
+                    });
+
                     if($indexProductDeal !== false)
                     {
                         $order->product = $products->get($indexProductDeal);
+                    }
+
+                    if($indexContactDeal !== false)
+                    {
+                        $order->contact = $contacts->get($indexContactDeal);
                     }
                 }
 
