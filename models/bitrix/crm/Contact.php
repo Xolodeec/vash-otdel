@@ -21,7 +21,7 @@ class Contact extends Model
     public function rules()
     {
         return [
-            ['id', 'number'],
+            [['id'], 'number'],
             [['name', 'secondName', 'lastName'], 'string'],
             [['phone'], 'default', 'value' => []],
         ];
@@ -34,7 +34,7 @@ class Contact extends Model
             'NAME' => 'name',
             'SECOND_NAME' => 'secondName',
             'LAST_NAME' => 'lastName',
-            'PHONE' => 'phone'
+            'PHONE' => 'phone',
         ];
     }
 

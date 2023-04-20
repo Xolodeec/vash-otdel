@@ -306,6 +306,24 @@ input, textarea{
     display: none;
 }
 
+.wrapper-report {
+    overflow: hidden;
+    transition: max-height 300ms;
+    max-height: 0; /* <---hide by default */
+}
+.wrapper-report.open {
+    max-height: 90px; /* <---when open, allow content to expand to take up as much height as it needs, up to e.g. 100px */
+}
+
+.wrapper-profile {
+    overflow: hidden;
+    transition: max-height 300ms;
+    max-height: 0; /* <---hide by default */
+}
+.wrapper-profile.open {
+    max-height: 90px; /* <---when open, allow content to expand to take up as much height as it needs, up to e.g. 100px */
+}
+
 @media (min-width: 767px) {
     .inner{
         width: 100%;
@@ -329,7 +347,7 @@ input, textarea{
         display:none;
     }
 
-    .profile-form-block input{
+    .profile-form-block input, .profile-form-block select{
         width: 25%;
     }
 

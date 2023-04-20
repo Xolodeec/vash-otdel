@@ -16,14 +16,16 @@ class Deal extends Model
     public $companyId;
     public $opportunity;
     public $stageId;
+    public $categoryId;
 
     use Collector;
 
     public function rules()
     {
         return [
-            [['id', 'contactId', 'companyId', 'opportunity'], 'number'],
+            [['id', 'contactId', 'companyId', 'opportunity', 'categoryId'], 'number'],
             [['title', 'stageId'], 'string'],
+            ['categoryId', 'default', 'value' => 0]
         ];
     }
 
@@ -36,6 +38,7 @@ class Deal extends Model
             'COMPANY_ID' => 'companyId',
             'OPPORTUNITY' => 'opportunity',
             'STAGE_ID' => 'stageId',
+            'CATEGORY_ID' => 'categoryId',
         ];
     }
 

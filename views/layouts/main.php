@@ -30,7 +30,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
-
 <header id="header">
     <div class="container-fluid">
         <div class="row">
@@ -75,10 +74,34 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 </li>
                 <li class="row g-0">
                     <div class="col-1" style="margin-right: 20px">
+                        <i class="fa-solid fa-sheet-plastic"></i>
+                    </div>
+                    <div class="col">
+                        <div class="dropdown">
+                            <a href="javascript:void(0);" class="dropbtn-report">Мои отчёты</a>
+                            <div class="wrapper-report">
+                                <ul id="list">
+                                    <li><a href="<?= \yii\helpers\Url::to('/report/installment') ?>" >Рассрочка</a></li>
+                                    <li><a href="<?= \yii\helpers\Url::to('/report/acquiring') ?>" >Эквайринг</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="row g-0">
+                    <div class="col-1" style="margin-right: 20px">
                         <i class="fa-solid fa-address-card"></i>
                     </div>
                     <div class="col">
-                        <a href="<?= \yii\helpers\Url::to('/profile') ?>">Профиль</a>
+                        <div class="dropdown">
+                            <a href="javascript:void(0);" class="dropbtn-profile">Профиль</a>
+                            <div class="wrapper-profile">
+                                <ul id="list">
+                                    <li><a href="<?= \yii\helpers\Url::to('/profile') ?>" >Информация</a></li>
+                                    <li><a href="<?= \yii\helpers\Url::to('/profile/settings') ?>" >Настройки</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li class="row g-0">
@@ -128,10 +151,34 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     </li>
                     <li class="row g-0">
                         <div class="col-1" style="margin-right: 20px">
+                            <i class="fa-solid fa-sheet-plastic"></i>
+                        </div>
+                        <div class="col">
+                            <div class="dropdown">
+                                <a href="javascript:void(0);" class="dropbtn-report">Мои отчёты</a>
+                                <div class="wrapper-report">
+                                    <ul id="list">
+                                        <li><a href="<?= \yii\helpers\Url::to('/report/installment') ?>" >Рассрочка</a></li>
+                                        <li><a href="<?= \yii\helpers\Url::to('/report/acquiring') ?>" >Эквайринг</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="row g-0">
+                        <div class="col-1" style="margin-right: 20px">
                             <i class="fa-solid fa-address-card"></i>
                         </div>
                         <div class="col">
-                            <a href="<?= \yii\helpers\Url::to('/profile') ?>">Профиль</a>
+                            <div class="dropdown">
+                                <a href="javascript:void(0);" class="dropbtn-profile">Профиль</a>
+                                <div class="wrapper-profile">
+                                    <ul id="list">
+                                        <li><a href="<?= \yii\helpers\Url::to('/profile') ?>" >Информация</a></li>
+                                        <li><a href="<?= \yii\helpers\Url::to('/profile/settings') ?>" >Настройки</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </li>
                     <li class="row g-0">
@@ -151,9 +198,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         <div class="content">
             <?php if (!empty($this->params['breadcrumbs'])): ?>
                 <?= Breadcrumbs::widget([
-                        'homeLink' => ['label' => 'Главная', 'url' => '/'],
-                        'links' => $this->params['breadcrumbs'],
-                        'itemTemplate' => "<li>{link}</li><li>/</li> \n",
+                    'homeLink' => ['label' => 'Главная', 'url' => '/'],
+                    'links' => $this->params['breadcrumbs'],
+                    'itemTemplate' => "<li>{link}</li><li>/</li> \n",
                 ]) ?>
             <?php endif ?>
             <?= Alert::widget() ?>

@@ -38,4 +38,16 @@ $(document).ready(function () {
     let typeCompany = $('.type-company-select select').val();
 
     slideInputCompany(typeCompany);
+
+    var rb = $(".dropbtn-report");
+    var rw = $(".wrapper-report");
+    rb.click(function() {
+        rw.toggleClass('open'); /* <-- toggle the application of the open class on click */
+    });
+
+    var pb = $(".dropbtn-profile");
+    var pw = $(".wrapper-profile");
+    pb.click(function() {
+        pw.toggleClass('open'); /* <-- toggle the application of the open class on click */
+    });
 });

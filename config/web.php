@@ -18,6 +18,9 @@ $config = [
         'forms' => [
             'class' => 'app\modules\forms\Module',
         ],
+        'report' => [
+            'class' => 'app\modules\report\Module',
+        ],
     ],
     'components' => [
         'request' => [
@@ -60,11 +63,12 @@ $config = [
                 '/<action:(index|students)>' => '/main/<action>',
                 '/<action:(login|logout|reset|sign-up)>' => 'auth/main/<action>',
                 '/<controller:profile>' => 'profile/index',
-                '/<controller:profile>/<action:(index|service|requisite|bank-detail|address)>' => 'profile/<action>',
+                '/<controller:profile>/<action:(index|service|requisite|bank-detail|address|settings|save-settings)>' => 'profile/<action>',
                 '/<controller:profile>/<action:(create|edit|delete)>' => 'profile/<action>',
                 '/<controller:service>' => 'service/index',
                 '/<controller:service>/<action:(index|create|edit|delete)>' => 'service/<action>',
                 '<module>/<controller>/<acttion>' => '<module>/<controller>/<acttion>',
+                '/report/<action>' => '/report/main/<action>',
             ],
         ],
     ],
@@ -84,7 +88,7 @@ if (YII_ENV_DEV) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['*'],
+//        'allowedIPs' => ['*'],
     ];
 }
 
