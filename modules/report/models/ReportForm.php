@@ -10,36 +10,49 @@ use function Symfony\Component\String\u;
 
 class ReportForm extends Model
 {
-    public $name;
-    public $lastName;
+    public $dateFrom;
+    public $dateTo;
     public $page;
     public $amountStudent;
     public $students;
+    public $companyId;
+    public $companyName;
 
     public function rules()
     {
         return [
-            [['page', 'amountStudent'], 'number'],
+            [['page', 'amountStudent', 'companyId'], 'number'],
             [['amountStudent'], 'default', 'value' => 0],
             [['students'], 'default', 'value' => []],
-            [['name', 'lastName'], 'string'],
+            [['dateFrom', 'dateTo', 'companyName'], 'string'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'name' => 'Имя',
-            'lastName' => 'Фамилия',
+            'dateFrom' => 'Дата С',
+            'dateTo' => 'Дата ПО',
         ];
     }
 
-    public static function generate($companyId, $params = [])
+    public static function generate($companyId, $categoryId, $params = [])
     {
         $params = collect($params);
 
+//        dd($categoryId);
+
         $model = new static();
         $model->page = $params->has('page') ? $params->get('page') - 1 : 0;
+
+        if($params->has('ReportForm'))
+        {
+            $model->load($params->toArray());
+        }
+
+        if (!empty($model->companyId)) {
+            $companyId = $model->companyId;
+        }
 
         $paramsRequest = [
             'order' => ['ID' => 'DESC'],
@@ -48,24 +61,24 @@ class ReportForm extends Model
             'start' => $model->page * 50,
         ];
 
-        if($params->has('StudentForm') && $model->load($params->toArray()))
-        {
-            if(!empty($model->name)) $paramsRequest['filter']['%NAME'] = $model->name;
-            if(!empty($model->lastName)) $paramsRequest['filter']['%LAST_NAME'] = $model->lastName;
-        }
-
         $bitrix = new Bitrix;
 
         $response = $bitrix->request('crm.contact.list', $paramsRequest);
 
         foreach ($response['result'] as $contact)
         {
-            $commandRow[] = $bitrix->buildCommand('crm.deal.list', [
+            $paramsDeal = [
                 'filter' => [
-                    '=CONTACT_ID' => $contact['ID']
-                ],
+                        '=CONTACT_ID' => $contact['ID'],
+                        'CATEGORY_ID' => $categoryId,
+                    ],
                 'select' => collect(Deal::mapFields())->keys()->toArray(),
-            ]);
+            ];
+
+            if(!empty($model->dateFrom)) $paramsDeal['filter']['>=DATE_CREATE'] = $model->dateFrom;
+            if(!empty($model->dateTo)) $paramsDeal['filter']['<=DATE_CREATE'] = $model->dateTo;
+
+            $commandRow[] = $bitrix->buildCommand('crm.deal.list', $paramsDeal);
         }
 
         ['result' => ['result' => $contactDeals]] = $bitrix->batchRequest($commandRow);
@@ -92,9 +105,9 @@ class ReportForm extends Model
                     {
                         foreach ($dealsByStudent as $deal)
                         {
-                            if(u($deal->stageId)->containsAny('LOSE')) $student->countLoseDeal += 1;
-                            if(u($deal->stageId)->containsAny('APOLOGY')) $student->countApologyDeal += 1;
                             if(u($deal->stageId)->containsAny('WON')) $student->countWonDeal += 1;
+                            if(u($deal->stageId)->containsAny('APOLOGY')) $student->countApologyDeal += 1;
+                            if(u($deal->stageId)->containsAny('LOSE')) $student->countLoseDeal += 1;
                         }
                     }
 

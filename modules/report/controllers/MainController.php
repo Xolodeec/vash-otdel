@@ -18,14 +18,14 @@ class MainController extends Controller
      */
     public function actionInstallment()
     {
-        $model = ReportForm::generate(\Yii::$app->user->identity->id, ['section' => 0]);
+        $model = ReportForm::generate(\Yii::$app->user->identity->id, 0, \Yii::$app->request->get());
 
         $pagination = new Pagination([
             'defaultPageSize' => 50,
             'totalCount' => $model->amountStudent,
         ]);
 
-        return $this->render('index', ['pages' => $pagination, 'students' => $model->students, 'model' => $model]);
+        return $this->render('installment', ['pages' => $pagination, 'students' => $model->students, 'model' => $model]);
     }
 
     public function actionAcquiring()
@@ -37,6 +37,6 @@ class MainController extends Controller
             'totalCount' => $model->amountStudent,
         ]);
 
-        return $this->render('index', ['pages' => $pagination, 'students' => $model->students, 'model' => $model]);
+        return $this->render('acquiring', ['pages' => $pagination, 'students' => $model->students, 'model' => $model]);
     }
 }

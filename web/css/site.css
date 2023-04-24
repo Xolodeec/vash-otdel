@@ -360,6 +360,33 @@ input, textarea{
     }
 }
 
+.select-company-bx24{
+    height: 40px;
+    font-size: 15px;
+}
+
+.select-company-bx24 > div{
+    padding: 0 10px;
+}
+
+.select-company-bx24 div:hover{
+    cursor: pointer;
+}
+
+.selected-co-bx24, .selected-user-bx24{
+    background: #84eeff;
+    color: #333;
+    border-radius: 2px;
+}
+
+.selected-co-bx24 > i, .selected-user-bx24 > i{
+    margin-left: 20px;
+}
+
+.unselected-co-b24 > i, .btn-select-user i{
+    margin-right: 10px;
+}
+
 @media (max-width: 767px) {
     #students-form div{
         width: 100%;

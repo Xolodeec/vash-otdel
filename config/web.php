@@ -10,6 +10,7 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        '@modules' =>  '@app/modules',
     ],
     'modules' => [
         'auth' => [
@@ -20,6 +21,12 @@ $config = [
         ],
         'report' => [
             'class' => 'app\modules\report\Module',
+        ],
+        'cron' => [
+            'class' => 'app\modules\cron\Module',
+        ],
+        'report-app' => [
+            'class' => 'app\modules\report_app\Module',
         ],
     ],
     'components' => [
@@ -88,7 +95,7 @@ if (YII_ENV_DEV) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-//        'allowedIPs' => ['*'],
+        'allowedIPs' => ['*'],
     ];
 }
 
