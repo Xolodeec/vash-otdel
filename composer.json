@@ -20,7 +20,8 @@
         "yiisoft/yii2-symfonymailer": "~2.0.3",
         "andrey-tech/http-client-php": "^3.0",
         "tightenco/collect": "^8.83",
-        "symfony/string": "^5.4"
+        "symfony/string": "^5.4",
+        "guzzlehttp/guzzle": "^7.5"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
