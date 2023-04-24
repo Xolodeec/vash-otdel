@@ -3,7 +3,7 @@
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 
-$this->title = "Заявка";
+$this->title = "Оформление заявки на рассрочку";
 
 ?>
 

@@ -50,4 +50,10 @@ $(document).ready(function () {
     pb.click(function() {
         pw.toggleClass('open'); /* <-- toggle the application of the open class on click */
     });
+
+    var ob = $(".dropbtn-order");
+    var ow = $(".wrapper-order");
+    ob.click(function() {
+        ow.toggleClass('open'); /* <-- toggle the application of the open class on click */
+    });
 });

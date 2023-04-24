@@ -14,7 +14,8 @@ class User extends BaseObject implements \yii\web\IdentityInterface
     public $authKey;
     public $accessToken;
     public $phone;
-    public $referralLink;
+    public $referralLinkInstallment;
+    public $referralLinkAcquiring;
 
     public static function findIdentity($id)
     {
@@ -27,7 +28,8 @@ class User extends BaseObject implements \yii\web\IdentityInterface
             $user->title = $company->title;
             $user->password = $company->password;
             $user->phone = $company->phone[0]['VALUE'];
-            $user->referralLink = $company->referralLink;
+            $user->referralLinkInstallment = $company->referralLinkInstallment;
+            $user->referralLinkAcquiring = $company->referralLinkAcquiring;
 
             return $user;
         }

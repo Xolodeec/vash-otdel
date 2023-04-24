@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public $layout = 'main';
 
-    public function actionIndex($token)
+    public function actionInstallment($token)
     {
         $model = OrderForm::instanceByToken($token);
 
@@ -27,7 +27,7 @@ class OrderController extends Controller
             \Yii::$app->session->setFlash('success', 'Данные успешно отправлены');
         }
 
-        return $this->render('index', ['model' => $model]);
+        return $this->render('installment', ['model' => $model]);
     }
 
     public function actionAcquiring($token)

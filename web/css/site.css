@@ -324,6 +324,15 @@ input, textarea{
     max-height: 90px; /* <---when open, allow content to expand to take up as much height as it needs, up to e.g. 100px */
 }
 
+.wrapper-order {
+    overflow: hidden;
+    transition: max-height 300ms;
+    max-height: 0; /* <---hide by default */
+}
+.wrapper-order.open {
+    max-height: 90px; /* <---when open, allow content to expand to take up as much height as it needs, up to e.g. 100px */
+}
+
 @media (min-width: 767px) {
     .inner{
         width: 100%;

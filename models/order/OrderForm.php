@@ -26,7 +26,7 @@ class OrderForm extends Model
         ];
     }
 
-    public static function generate($companyId, $params = [])
+    public static function generate($companyId, $categoryId, $params = [])
     {
         $params = collect($params);
 
@@ -35,15 +35,19 @@ class OrderForm extends Model
 
         $paramsRequest = [
             'order' => ['ID' => 'DESC'],
-            'filter' => ['COMPANY_ID' => $companyId],
+            'filter' => ['COMPANY_ID' => $companyId, 'CATEGORY_ID' => $categoryId],
             'select' => collect(Deal::mapFields())->keys()->toArray(),
             'start' => $model->page * 50,
         ];
 
         $bitrix = new Bitrix;
 
+        $entityId = 'DEAL_STAGE';
+
+        if($categoryId > 0) $entityId .= "_{$categoryId}";
+
         $command['get_deal'] = $bitrix->buildCommand('crm.deal.list', $paramsRequest);
-        $command['get_stages'] = $bitrix->buildCommand('crm.status.list', ['filter' => ['CATEGORY_ID' => 0, 'ENTITY_ID' => 'DEAL_STAGE']]);
+        $command['get_stages'] = $bitrix->buildCommand('crm.status.list', ['filter' => ['CATEGORY_ID' => $categoryId, 'ENTITY_ID' => $entityId]]);
 
         ['result' => $response] = $bitrix->batchRequest($command);
 

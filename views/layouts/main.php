@@ -130,7 +130,15 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                             <i class="fa-solid fa-house col-1"></i>
                         </div>
                         <div class="col">
-                            <a href="<?= \yii\helpers\Url::to('/') ?>">Главная</a>
+                            <div class="dropdown">
+                                <a href="javascript:void(0);" class="dropbtn-order">Заказы</a>
+                                <div class="wrapper-order">
+                                    <ul id="list">
+                                        <li><a href="<?= \yii\helpers\Url::to('/order/installment') ?>" >Рассрочка</a></li>
+                                        <li><a href="<?= \yii\helpers\Url::to('/order/acquiring') ?>" >Эквайринг</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </li>
                     <li class="row g-0">

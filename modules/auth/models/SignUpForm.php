@@ -103,7 +103,8 @@ class SignUpForm extends Model
         $company->im[] = ['VALUE' => $this->telegramPhone, 'VALUE_TYPE' => 'TELEGRAM'];
         $company->password = \Yii::$app->security->generatePasswordHash($password);
         $company->tokenReferral = md5("{$password}:{$uniqId}");
-        $company->referralLink = Yii::$app->request->hostInfo . "/forms/order?token={$company->tokenReferral}";
+        $company->referralLinkInstallment = Yii::$app->request->hostInfo . "/forms/order/installment?token={$company->tokenReferral}";
+        $company->referralLinkAcquiring = Yii::$app->request->hostInfo . "/forms/order/acquiring?token={$company->tokenReferral}";
 
         $requisite = new Requisite;
         $requisite->presetId = $this->typeCompany;

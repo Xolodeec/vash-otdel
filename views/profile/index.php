@@ -18,7 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <ul class="company-info">
         <li>Название компании: <?= Yii::$app->user->identity->title ?></li>
         <li>Номер телефона: <?= Yii::$app->user->identity->phone ?></li>
-        <li>Реферальная ссылка: <?= Yii::$app->user->identity->referralLink ?></li>
+        <li>Реферальная ссылка на рассрочку: <?= Yii::$app->user->identity->referralLinkInstallment ?></li>
+        <li>Реферальная ссылка на эквайринг: <?= Yii::$app->user->identity->referralLinkAcquiring ?></li>
     </ul>
 </article>
 
