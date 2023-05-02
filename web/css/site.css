@@ -10,6 +10,18 @@ body{
     font-weight: 600;
 }
 
+.currentPage {
+    background: #dfefff !important;
+}
+
+.app-link{
+    color: #3e3939 !important;
+}
+
+.app-link:hover {
+    text-decoration: underline !important;
+}
+
 a{
     text-decoration: none;
 }

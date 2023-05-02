@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <tr>
             <th class="text-center column-small">#</th>
             <th>ФИО</th>
+            <th>Сумма авторизованных договоров</th>
             <th>Авторизовано договоров</th>
             <th>Отказов Клиента</th>
             <th>Отказов Банка</th>
@@ -26,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <tr>
                     <td class="text-center"><span class="bg-blue"><?= $index ?><span></td>
                     <td><?= $student->lastName . ' ' . $student->name . ' ' . $student->secondName ?></td>
+                    <td><?= $student->wonDealsSum ?></td>
                     <td><?= $student->countLoseDeal ?></td>
                     <td><?= $student->countApologyDeal ?></td>
                     <td><?= $student->countWonDeal ?></td>

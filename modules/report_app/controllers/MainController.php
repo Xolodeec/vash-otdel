@@ -8,7 +8,7 @@ use yii\web\Controller;
 use Yii;
 use app\models\bitrix\Bitrix;
 use yii\web\Cookie;
-use app\modules\report\models\ReportForm;
+use app\modules\report_app\models\ReportForm;
 use app\modules\report_app\models\User;
 use yii\data\Pagination;
 
@@ -29,12 +29,7 @@ class MainController extends Controller
 
             $model = ReportForm::generate(0, 0, \Yii::$app->request->get());
 
-            $pagination = new Pagination([
-                'defaultPageSize' => 50,
-                'totalCount' => $model->amountStudent,
-            ]);
-
-            return $this->render('index', ['pages' => $pagination, 'students' => $model->students, 'model' => $model]);
+            return $this->render('index', ['schools' => $model->schools, 'model' => $model]);
         } else {
             return $this->render('access_denied');
         }
@@ -46,12 +41,7 @@ class MainController extends Controller
 
             $model = ReportForm::generate(0, 1, \Yii::$app->request->get());
 
-            $pagination = new Pagination([
-                'defaultPageSize' => 50,
-                'totalCount' => $model->amountStudent,
-            ]);
-
-            return $this->render('acquiring', ['pages' => $pagination, 'students' => $model->students, 'model' => $model]);
+            return $this->render('acquiring', ['schools' => $model->schools, 'model' => $model]);
         } else {
             return $this->render('access_denied');
         }

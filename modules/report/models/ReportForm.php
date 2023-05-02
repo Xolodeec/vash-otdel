@@ -40,15 +40,15 @@ class ReportForm extends Model
     {
         $params = collect($params);
 
-//        dd($categoryId);
-
         $model = new static();
-        $model->page = $params->has('page') ? $params->get('page') - 1 : 0;
 
         if($params->has('ReportForm'))
         {
             $model->load($params->toArray());
         }
+
+        if(empty($model->dateFrom)) $model->dateFrom = date('Y-m-d',strtotime('-1 days'));
+        if(empty($model->dateTo)) $model->dateTo = date('Y-m-d',strtotime('-1 days'));
 
         if (!empty($model->companyId)) {
             $companyId = $model->companyId;
@@ -58,60 +58,89 @@ class ReportForm extends Model
             'order' => ['ID' => 'DESC'],
             'filter' => ['UF_CRM_1680707854' => $companyId],
             'select' => collect(Student::mapFields())->keys()->toArray(),
-            'start' => $model->page * 50,
         ];
 
         $bitrix = new Bitrix;
 
         $response = $bitrix->request('crm.contact.list', $paramsRequest);
 
-        foreach ($response['result'] as $contact)
+        $contacts = new Collection($response['result']);
+
+        $model->amountStudent = $response['total'];
+
+        if ($response['total'] > 50) {
+            for ($i=50; $i<=$response['total']; $i+=50) {
+                $paramsRequest['start'] = $i;
+
+                $commandRow[] = $bitrix->buildCommand('crm.contact.list', $paramsRequest);
+            }
+
+            $additionalContacts = collect($bitrix->batchRequest($commandRow)['result']['result'])->flatten(1);
+            $contacts = $contacts->merge($additionalContacts);
+
+            unset($commandRow);
+        }
+
+        foreach ($contacts as $contact)
         {
             $paramsDeal = [
                 'filter' => [
                         '=CONTACT_ID' => $contact['ID'],
-                        'CATEGORY_ID' => $categoryId,
+                        '=CATEGORY_ID' => $categoryId,
                     ],
                 'select' => collect(Deal::mapFields())->keys()->toArray(),
             ];
 
-            if(!empty($model->dateFrom)) $paramsDeal['filter']['>=DATE_CREATE'] = $model->dateFrom;
-            if(!empty($model->dateTo)) $paramsDeal['filter']['<=DATE_CREATE'] = $model->dateTo;
+            $paramsDeal['filter']['>=DATE_CREATE'] = $model->dateFrom;
+            $paramsDeal['filter']['<=DATE_CREATE'] = $model->dateTo;
 
             $commandRow[] = $bitrix->buildCommand('crm.deal.list', $paramsDeal);
         }
 
-        ['result' => ['result' => $contactDeals]] = $bitrix->batchRequest($commandRow);
+        $commandRow = array_chunk($commandRow, 50);
 
-        $contactDeals = collect($contactDeals)->flatten(1);
+        $contactDeals = new Collection();
+
+        foreach ($commandRow as $commands) {
+            $contactDeals->push($bitrix->batchRequest($commands)['result']['result']);
+        }
+
+        $contactDeals = $contactDeals->flatten(2);
         $contactDeals = Deal::multipleCollect(new Deal(), $contactDeals->toArray());
 
         if($model->validate() && $response['total'] > 0)
         {
-            $model->amountStudent = $response['total'];
-            $model->students = Student::multipleCollect(Student::class, $response['result']);
+            $model->students = Student::multipleCollect(Student::class, $contacts->toArray());
 
             if(!empty($model->students))
             {
                 $students = new Collection();
 
-                foreach ($model->students as $index => $student)
+                $index = 0;
+                foreach ($model->students as $student)
                 {
-                    $dealsByStudent = collect($contactDeals)->filter(function ($item) use($student, $params) {
-                        return $item->contactId == $student->id && $item->categoryId == $params['category'];
+                    $dealsByStudent = collect($contactDeals)->filter(function ($item) use($student, $categoryId, $params) {
+                        return $item->contactId == $student->id && $item->categoryId == $categoryId;
                     });
 
                     if($dealsByStudent->isNotEmpty())
                     {
                         foreach ($dealsByStudent as $deal)
                         {
-                            if(u($deal->stageId)->containsAny('WON')) $student->countWonDeal += 1;
+                            if(u($deal->stageId)->containsAny(['WON', 'C1:WON'])) {
+                                $student->countWonDeal += 1;
+                                $student->wonDealsSum += $deal->opportunity;
+                            }
                             if(u($deal->stageId)->containsAny('APOLOGY')) $student->countApologyDeal += 1;
-                            if(u($deal->stageId)->containsAny('LOSE')) $student->countLoseDeal += 1;
+                            if(u($deal->stageId)->containsAny(['LOSE', 'C1:LOSE'])) $student->countLoseDeal += 1;
                         }
                     }
 
-                    $students->put($index + ($model->page * 50) + 1, $student);
+                    if ($student->countWonDeal > 0 || $student->countLoseDeal > 0 || $student->countApologyDeal > 0) {
+                        $students->put($index + 1, $student);
+
+                        $index++;
+                    }
                 }
 
                 $model->students = $students->toArray();

@@ -20,23 +20,13 @@ class MainController extends Controller
     {
         $model = ReportForm::generate(\Yii::$app->user->identity->id, 0, \Yii::$app->request->get());
 
-        $pagination = new Pagination([
-            'defaultPageSize' => 50,
-            'totalCount' => $model->amountStudent,
-        ]);
-
-        return $this->render('installment', ['pages' => $pagination, 'students' => $model->students, 'model' => $model]);
+        return $this->render('installment', ['students' => $model->students, 'model' => $model]);
     }
 
     public function actionAcquiring()
     {
-        $model = ReportForm::generate(\Yii::$app->user->identity->id, ['section' => 1]);
+        $model = ReportForm::generate(\Yii::$app->user->identity->id, 1, \Yii::$app->request->get());
 
-        $pagination = new Pagination([
-            'defaultPageSize' => 50,
-            'totalCount' => $model->amountStudent,
-        ]);
-
-        return $this->render('acquiring', ['pages' => $pagination, 'students' => $model->students, 'model' => $model]);
+        return $this->render('acquiring', ['students' => $model->students, 'model' => $model]);
     }
 }

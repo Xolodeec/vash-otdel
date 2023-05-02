@@ -79,7 +79,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     <div class="col">
                         <div class="dropdown">
                             <a href="javascript:void(0);" class="dropbtn-report">Мои отчёты</a>
-                            <div class="wrapper-report">
+                            <div class="wrapper-report <?= \Yii::$app->controller->module->id == 'report' ? 'open' : '' ?>">
                                 <ul id="list">
                                     <li><a href="<?= \yii\helpers\Url::to('/report/installment') ?>" >Рассрочка</a></li>
                                     <li><a href="<?= \yii\helpers\Url::to('/report/acquiring') ?>" >Эквайринг</a></li>
@@ -164,7 +164,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         <div class="col">
                             <div class="dropdown">
                                 <a href="javascript:void(0);" class="dropbtn-report">Мои отчёты</a>
-                                <div class="wrapper-report">
+                                <div class="wrapper-report <?= \Yii::$app->controller->module->id == 'report' ? 'open' : '' ?>">
                                     <ul id="list">
                                         <li><a href="<?= \yii\helpers\Url::to('/report/installment') ?>" >Рассрочка</a></li>
                                         <li><a href="<?= \yii\helpers\Url::to('/report/acquiring') ?>" >Эквайринг</a></li>

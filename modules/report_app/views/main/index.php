@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="grey-wrapper">
     <?php $form = ActiveForm::begin([
-        'id' => 'students-form',
+        'id' => 'schools-form',
         'method' => 'GET',
         'action' => \yii\helpers\Url::to('/report-app/main/index'),
         'fieldConfig' => [
@@ -61,47 +61,39 @@ $this->params['breadcrumbs'][] = $this->title;
         <thead>
         <tr>
             <th class="text-center column-small">#</th>
-            <th>ФИО</th>
+            <th>Компания</th>
+            <th>Сумма авторизованных договоров</th>
             <th>Авторизовано договоров</th>
             <th>Отказов Клиента</th>
             <th>Отказов Банка</th>
         </tr>
         </thead>
         <tbody>
-        <?php if(!empty($students)) : ?>
-            <?php foreach($students as $index => $student) : ?>
+        <?php if(!empty($schools)) : ?>
+            <tr>
+                <td></td>
+                <td>Итого:</td>
+                <td><?= $model->wonDealsSum ?></td>
+                <td><?= $model->countWonDeal ?></td>
+                <td><?= $model->countApologyDeal ?></td>
+                <td><?= $model->countLoseDeal ?></td>
+            </tr>
+            <?php foreach($schools as $index => $school) : ?>
                 <tr>
                     <td class="text-center"><span class="bg-blue"><?= $index ?><span></td>
-                    <td><?= $student->lastName . ' ' . $student->name . ' ' . $student->secondName ?></td>
-                    <td><?= $student->countWonDeal ?></td>
-                    <td><?= $student->countApologyDeal ?></td>
-                    <td><?= $student->countLoseDeal ?></td>
+                    <td><a class="app-link" href="javascript::void()" onclick="BX24.openPath('/crm/company/details/<?=$school->id?>/')"> <?= $school->title ?></a></td>
+                    <td><?= $school->wonDealsSum ?></td>
+                    <td><?= $school->countWonDeal ?></td>
+                    <td><?= $school->countApologyDeal ?></td>
+                    <td><?= $school->countLoseDeal ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td class="text-center" colspan="4">Ничего не найдено</td>
+                <td class="text-center" colspan="5">Ничего не найдено</td>
             </tr>
         <?php endif; ?>
         </tbody>
     </table>
-    <?php if($pages->totalCount > 0) : ?>
-        <footer>
-            <?= \yii\bootstrap5\LinkPager::widget([
-                'pagination' => $pages,
-                'prevPageCssClass' => 'up-prev',
-                'prevPageLabel' => 'Назад',
-                'pageCssClass' => 'up-page',
-                'nextPageCssClass' => 'up-next',
-                'nextPageLabel' => 'Вперед',
-                'options' => [
-                    'class' => 'up-pagination',
-                ],
-                'linkOptions' => [
-                    'class' => "",
-                ],
-            ]) ?>
-        </footer>
-    <?php endif; ?>
 </div>
 

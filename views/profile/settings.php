@@ -4,7 +4,7 @@ use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use yii\helpers\ArrayHelper;
 
-$this->title = "Мой профиль";
+$this->title = "Настройки профиля";
 
 $this->params['breadcrumbs'][] = $this->title;
 

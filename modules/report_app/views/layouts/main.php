@@ -35,8 +35,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         <div class="sidebar left">
             <nav class="navigation">
                 <ul>
-                    <li><a href="<?= \yii\helpers\Url::to('/report-app/main/index') ?>" >Рассрочка</a></li>
-                    <li><a href="<?= \yii\helpers\Url::to('/report-app/main/acquiring') ?>" >Эквайринг</a></li>
+                    <li class="<?= \Yii::$app->controller->action->id == 'index' ? 'currentPage' : '' ?>"><a href="<?= \yii\helpers\Url::to('/report-app/main/index') ?>" >Рассрочка</a></li>
+                    <li class="<?= \Yii::$app->controller->action->id == 'acquiring' ? 'currentPage' : '' ?>"><a href="<?= \yii\helpers\Url::to('/report-app/main/acquiring') ?>" >Эквайринг</a></li>
                 </ul>
             </nav>
         </div>

@@ -1,11 +1,11 @@
 <?php
 
-namespace app\modules\report\models;
+namespace app\modules\report_app\models;
 
-use app\models\bitrix\crm\Contact;
+use app\models\bitrix\crm\Company;
 use yii\base\Model;
 
-class Student extends Contact
+class School extends Company
 {
     public $countLoseDeal;
     public $countApologyDeal;
@@ -16,7 +16,7 @@ class Student extends Contact
     public function rules()
     {
         $rules = collect(parent::rules());
-        $rules->push([['assignedByCompany', 'countLoseDeal', 'countApologyDeal', 'countWonDeal', 'wonDealsSum'], 'number']);
+        $rules->push([['assignedByCompany', 'countLoseDeal', 'countApologyDeal', 'countWonDeal'], 'number']);
         $rules->push([['countLoseDeal', 'countApologyDeal', 'countWonDeal', 'wonDealsSum'], 'default', 'value' => 0]);
 
         return $rules->toArray();
@@ -25,8 +25,12 @@ class Student extends Contact
     public static function mapFields()
     {
         $fields = collect(parent::mapFields());
-        $fields->put('UF_CRM_1680707854', 'assignedByCompany');
 
         return $fields->toArray();
+    }
+
+    public function getSum()
+    {
+        return 500;
     }
 }
