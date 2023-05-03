@@ -2,6 +2,7 @@
 
 namespace app\modules\auth\controllers;
 
+use app\models\bitrix\Bitrix;
 use app\models\bitrix\crm\requisite\Requisite;
 use app\models\bitrix\crm\requisite\RequisitePreset;
 use app\modules\auth\models\LoginForm;

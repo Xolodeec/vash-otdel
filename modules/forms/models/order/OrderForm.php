@@ -16,6 +16,7 @@ class OrderForm extends Model
     public $secondName;
     public $lastName;
     public $productId;
+    public $priceProduct;
     public $phone;
     public $isAgree;
 
@@ -26,10 +27,10 @@ class OrderForm extends Model
     {
         return [
             [['name', 'secondName', 'lastName'], 'string'],
-            [['name', 'lastName', 'phone', 'productId', 'isAgree'], 'required'],
+            [['name', 'lastName', 'phone', 'productId', 'priceProduct', /*'isAgree'*/], 'required'],
             ['isAgree', 'compare', 'compareValue'=> 1, 'message' => ""],
             [['productId'], 'number'],
-            [['isAgree'], 'boolean'],
+            //[['isAgree'], 'boolean'],
             [['phone'], 'filter', 'filter' => function($item){
                 return preg_replace('/[^0-9+]/', '', $item);
             }],
@@ -45,6 +46,7 @@ class OrderForm extends Model
             'phone' => 'Телефон',
             'productId' => 'Товар',
             'isAgree' => 'Я согласен на обработку персональных данных',
+            'priceProduct' => 'Цена товара',
         ];
     }
 

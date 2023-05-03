@@ -408,6 +408,19 @@ input, textarea{
     margin-right: 10px;
 }
 
+.nav-tabs{
+    display: none;
+}
+
+.sw-main{
+    box-shadow: none !important;
+    width: 100%;
+}
+
+.sw-theme-default .step-content {
+    padding: 0 !important;
+}
+
 @media (max-width: 767px) {
     #students-form div{
         width: 100%;

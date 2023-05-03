@@ -2,6 +2,7 @@
 
 namespace app\modules\forms\controllers;
 
+use app\models\bitrix\crm\Product;
 use yii\web\Controller;
 
 /**
@@ -9,12 +10,15 @@ use yii\web\Controller;
  */
 class DefaultController extends Controller
 {
-    /**
-     * Renders the index view for the module
-     * @return string
-     */
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionGetProductPrice($id)
+    {
+        $product = Product::findById($id);
+
+        return $product->price;
     }
 }

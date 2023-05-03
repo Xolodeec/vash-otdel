@@ -9,7 +9,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
-<div class="toolbar mt-3">
+<div class="toolbar mt-3 mb-3">
     <?= Html::a('Добавить', '/service/create', ['class' => 'btn btn-success mb-2']) ?>
 </div>
 

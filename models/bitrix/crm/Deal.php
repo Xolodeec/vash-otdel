@@ -17,6 +17,8 @@ class Deal extends Model
     public $opportunity;
     public $stageId;
     public $categoryId;
+    public $countMonthInstallment;
+    public $codeWord;
 //    public $dateCreate;
 
     use Collector;
@@ -25,7 +27,7 @@ class Deal extends Model
     {
         return [
             [['id', 'contactId', 'companyId', 'opportunity', 'categoryId'], 'number'],
-            [['title', 'stageId'], 'string'],
+            [['title', 'stageId', 'countMonthInstallment', 'codeWord'], 'string'],
             ['categoryId', 'default', 'value' => 0],
 //            ['dateCreate', 'filter', 'filter' => function($value){
 //                return date('d.m.Y', strtotime($value));
@@ -43,6 +45,8 @@ class Deal extends Model
             'OPPORTUNITY' => 'opportunity',
             'STAGE_ID' => 'stageId',
             'CATEGORY_ID' => 'categoryId',
+            'UF_CRM_1683139541295' => 'countMonthInstallment',
+            'UF_CRM_1683139553667' => 'codeWord',
 //            'DATE_CREATE' => 'dateCreate'
         ];
     }

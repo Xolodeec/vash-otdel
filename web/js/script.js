@@ -57,3 +57,20 @@ $(document).ready(function () {
         ow.toggleClass('open'); /* <-- toggle the application of the open class on click */
     });
 });
+
+function setProductPrice(id, elementID)
+{
+    var price = 0;
+
+    $.ajax({
+        url: '/forms/default/get-product-price',         /* Куда пойдет запрос */
+        method: 'get',             /* Метод передачи (post или get) */
+        dataType: 'html',          /* Тип данных в ответе (xml, json, script, html). */
+        data: {id: id},     /* Параметры передаваемые в запросе. */
+        success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
+            $(elementID).val(data);           /* В переменной data содержится ответ от index.php. */
+        }
+    });
+
+    return price;
+}

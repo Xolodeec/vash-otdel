@@ -21,7 +21,10 @@
         "andrey-tech/http-client-php": "^3.0",
         "tightenco/collect": "^8.83",
         "symfony/string": "^5.4",
-        "guzzlehttp/guzzle": "^7.5"
+        "guzzlehttp/guzzle": "^7.5",
+        "kadotafig/yii2-formwizard": "@dev",
+        "ext-json": "*",
+        "kartik-v/yii2-widget-datepicker": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

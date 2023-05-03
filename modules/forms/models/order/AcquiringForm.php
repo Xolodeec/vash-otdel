@@ -13,7 +13,7 @@ class AcquiringForm extends OrderForm
         $payKeeper = new PayKeeper(\Yii::$app->params['payKeeper']['host'], \Yii::$app->params['payKeeper']['login'], \Yii::$app->params['payKeeper']['password']);
 
         $this->paymentData = $payKeeper->getPaymentData([
-            'pay_amount' => $this->getSelectedProduct()->price,
+            'pay_amount' => $this->priceProduct,
             'service_name' => $this->getSelectedProduct()->name,
             'client_phone' => $this->phone,
             'clientid' => "{$this->lastName} {$this->name} {$this->secondName}",
