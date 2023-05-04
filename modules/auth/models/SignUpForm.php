@@ -32,9 +32,9 @@ class SignUpForm extends Model
             [['phone'], 'filter', 'filter' => function($item){
                 return preg_replace('/[^0-9+]/', '', $item);
             }],
-            ['telegramLogin', 'match', 'pattern' => '/^[0-9\s]+$/u'],
+            ['telegramLogin', 'match', 'pattern' => '/^[0-9\s]+$/u', 'message' => 'Телеграм ID может состоять только из цифр'],
             ['phone', 'validationPhone'],
-            [['typeCompany', 'titleCompany', 'phone', 'telegramLogin'], 'required'],
+            [['typeCompany', 'titleCompany', 'phone', 'telegramLogin'], 'required', 'message' => 'Поле не может быть пустым'],
             ['inn', 'validationInn'],
             ['ogrn', 'validationOgrn'],
             ['ogrnIp', 'validationOgrnIp'],
