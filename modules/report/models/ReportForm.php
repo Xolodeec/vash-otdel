@@ -97,6 +97,10 @@ class ReportForm extends Model
             $commandRow[] = $bitrix->buildCommand('crm.deal.list', $paramsDeal);
         }
 
+        if (empty($commandRow)) {
+            return new static();
+        }
+
         $commandRow = array_chunk($commandRow, 50);
 
         $contactDeals = new Collection();

@@ -8,11 +8,12 @@ class School extends \app\models\bitrix\crm\Company
     public $tokenReferral;
     public $referralLinkInstallment;
     public $referralLinkAcquiring;
+    public $telegramId;
 
     public function rules()
     {
         $rules = collect(parent::rules());
-        $rules->push([['password', 'tokenReferral', 'referralLinkInstallment', 'referralLinkAcquiring'], 'string']);
+        $rules->push([['password', 'tokenReferral', 'referralLinkInstallment', 'referralLinkAcquiring', 'telegramId'], 'string']);
 
         return $rules->toArray();
     }
@@ -24,6 +25,7 @@ class School extends \app\models\bitrix\crm\Company
         $fields->put('UF_CRM_1680701873800', 'tokenReferral');
         $fields->put('UF_CRM_1680700887498', 'referralLinkInstallment');
         $fields->put('UF_CRM_1682348859306', 'referralLinkAcquiring');
+        $fields->put('UF_CRM_1683203303333', 'telegramId');
 
         return $fields->toArray();
     }

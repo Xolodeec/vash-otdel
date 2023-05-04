@@ -9,6 +9,10 @@ $this->title = "Регистрация";
 
 <div class="wrapper-form shadow-sm rounded mb-4">
     <h4 class="mb-4 text-center text-uppercase">Регистрация</h4>
+    <div class="alert alert-warning" role="alert">
+        Перед регистрации обязательно подпишитесь на наш чат-бот и нажмите кнопку /start, иначе мы не сможем отправить вам логин и пароль.
+        <a href="https://t.me/VashOtdelBot" target="_blank">Подписаться</a>
+    </div>
     <?php $form = ActiveForm::begin([
         'id' => 'sign-up-form',
         'fieldConfig' => [
@@ -25,9 +29,11 @@ $this->title = "Регистрация";
     <?= $form->field($model, 'phone', ['options' => ['class' => 'form-floating mb-3']])->widget(\yii\widgets\MaskedInput::class, [
         'mask' => '+7 (999) 999 99 99',
     ]); ?>
-    <?= $form->field($model, 'telegramPhone', ['options' => ['class' => 'form-floating mb-3']])->widget(\yii\widgets\MaskedInput::class, [
-        'mask' => '+7 (999) 999 99 99',
-    ]); ?>
+    <div class="alert alert-warning" role="alert">
+        Для того, чтобы узнать ваш телеграм ID перейдите в специализированного бота и напиши /start, введите ваш логин в формате @nickname и скопируйте значение.
+        <a href="https://t.me/get_any_telegram_id_bot" target="_blank">Открыть</a>
+    </div>
+    <?= $form->field($model, 'telegramLogin', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
     <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary w-100']) ?>
     <?php $form::end() ?>
 </div>

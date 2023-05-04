@@ -5,6 +5,7 @@ namespace app\modules\auth\models;
 use app\models\bitrix\Bitrix;
 use app\models\bitrix\crm\requisite\Requisite;
 use app\models\school\School;
+use app\models\TelegramBot;
 use Tightenco\Collect\Support\Collection;
 use Yii;
 use yii\base\Model;
@@ -17,22 +18,23 @@ class SignUpForm extends Model
     public $inn;
     public $ogrn;
     public $phone;
-    public $telegramPhone;
+    public $telegramLogin;
     public $ogrnIp;
 
     public function rules()
     {
         return [
             [['typeCompany'], 'number'],
-            [['titleCompany', 'inn', 'ogrn', 'phone', 'telegramPhone', 'ogrnIp'], 'string'],
-            [['titleCompany', 'inn', 'ogrn', 'phone', 'telegramPhone', 'ogrnIp'], 'filter', 'filter' => function($item){
+            [['titleCompany', 'inn', 'ogrn', 'phone', 'telegramLogin', 'ogrnIp'], 'string'],
+            [['titleCompany', 'inn', 'ogrn', 'phone', 'telegramLogin', 'ogrnIp'], 'filter', 'filter' => function($item){
                 return u($item)->trim()->toString();
             }],
-            [['phone', 'telegramPhone'], 'filter', 'filter' => function($item){
+            [['phone'], 'filter', 'filter' => function($item){
                 return preg_replace('/[^0-9+]/', '', $item);
             }],
+            ['telegramLogin', 'match', 'pattern' => '/^[0-9\s]+$/u'],
             ['phone', 'validationPhone'],
-            [['typeCompany', 'titleCompany', 'phone', 'telegramPhone'], 'required'],
+            [['typeCompany', 'titleCompany', 'phone', 'telegramLogin'], 'required'],
             ['inn', 'validationInn'],
             ['ogrn', 'validationOgrn'],
             ['ogrnIp', 'validationOgrnIp'],
@@ -47,7 +49,7 @@ class SignUpForm extends Model
             'inn' => 'ИНН',
             'ogrn' => 'ОГРН',
             'phone' => 'Телефон',
-            'telegramPhone' => 'Телеграм',
+            'telegramLogin' => 'Телеграм ID',
             'ogrnIp' => 'ОГРНИП',
         ];
     }
@@ -100,7 +102,7 @@ class SignUpForm extends Model
         $company = new School();
         $company->title = $this->titleCompany;
         $company->phone[] = ['VALUE' => "$this->phone", 'TYPE' => 'WORK'];
-        $company->im[] = ['VALUE' => $this->telegramPhone, 'VALUE_TYPE' => 'TELEGRAM'];
+        $company->telegramId = $this->telegramLogin;
         $company->password = \Yii::$app->security->generatePasswordHash($password);
         $company->tokenReferral = md5("{$password}:{$uniqId}");
         $company->referralLinkInstallment = Yii::$app->request->hostInfo . "/forms/order/installment?token={$company->tokenReferral}";
@@ -117,6 +119,8 @@ class SignUpForm extends Model
 
         $commands->put('company_add', $bitrix->buildCommand('crm.company.add', ['fields' => $company::getParamsField($company)]));
         $commands->put('requisite_add', $bitrix->buildCommand('crm.requisite.add', ['fields' => $requisite::getParamsField($requisite)]));
+
+        /*
         $commands->put('start_bizproc', $bitrix->buildCommand('bizproc.workflow.start', [
             'TEMPLATE_ID' => 19,
             'DOCUMENT_ID' => ['crm', 'CCrmDocumentCompany', '$result[company_add]'],
@@ -124,6 +128,17 @@ class SignUpForm extends Model
                 'password' => $password,
             ],
         ]));
+        */
+
+        $message = "Вы успешно зарегистрированы!\n\n";
+        $message .= "Логин: <code>{$this->phone}</code>\n";
+        $message .= "Пароль: <code>{$password}</code>\n\n";
+
+
+        $message .= "<a href='https://lk.vashotdel.ru/login'>Войти</a>";
+
+        $tgBot = TelegramBot::vashOtdel();
+        $tgBot->sendMessage($this->telegramLogin, $message);
 
         return $bitrix->batchRequest($commands->toArray());
     }

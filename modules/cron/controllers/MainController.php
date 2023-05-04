@@ -19,7 +19,6 @@ class MainController extends Controller
     public function actionReport()
     {
         $report = new Report;
-
         $report->sendTextReport();
 
         return 200;

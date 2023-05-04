@@ -13,4 +13,7 @@ return [
         'password' => '126f2bb086db',
         'host' => 'https://vashotdel-v.server.paykeeper.ru',
     ],
+    'telegramBots' => [
+        'ВашОтдел' => '5954754283:AAEojbJMVAgi2p1n6Gj8llvPUVQY776apRc',
+    ],
 ];

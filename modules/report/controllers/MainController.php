@@ -12,10 +12,6 @@ use yii\data\Pagination;
  */
 class MainController extends Controller
 {
-    /**
-     * Renders the index view for the module
-     * @return string
-     */
     public function actionInstallment()
     {
         $model = ReportForm::generate(\Yii::$app->user->identity->id, 0, \Yii::$app->request->get());

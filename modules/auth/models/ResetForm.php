@@ -4,6 +4,7 @@ namespace app\modules\auth\models;
 
 use app\models\bitrix\Bitrix;
 use app\models\school\School;
+use app\models\TelegramBot;
 use Tightenco\Collect\Support\Collection;
 use Yii;
 use yii\base\Model;
@@ -53,6 +54,8 @@ class ResetForm extends Model
         $company->referralLinkAcquiring = Yii::$app->request->hostInfo . "/forms/order/acquiring?token={$company->tokenReferral}";
 
         $commands->put('company_update', $bitrix->buildCommand('crm.company.update', ['ID' => $company->id, 'fields' => $company::getParamsField($company)]));
+
+        /*
         $commands->put('start_bizproc', $bitrix->buildCommand('bizproc.workflow.start', [
             'TEMPLATE_ID' => 19,
             'DOCUMENT_ID' => ['crm', 'CCrmDocumentCompany', $company->id],
@@ -60,6 +63,17 @@ class ResetForm extends Model
                 'password' => $password,
             ],
         ]));
+        */
+
+        $message = "Пароль успешно сброшен!\n\n";
+        $message .= "Логин: <code>{$this->phone}</code>\n";
+        $message .= "Пароль: <code>{$password}</code>\n\n";
+
+
+        $message .= "<a href='https://lk.vashotdel.ru/login'>Войти</a>";
+
+        $tgBot = TelegramBot::vashOtdel();
+        $tgBot->sendMessage($company->telegramId, $message);
 
         return $bitrix->batchRequest($commands->toArray());
     }

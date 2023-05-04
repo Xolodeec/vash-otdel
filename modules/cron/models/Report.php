@@ -2,6 +2,7 @@
 
 namespace app\modules\cron\models;
 
+use app\models\TelegramBot;
 use app\modules\report\models\ReportForm;
 use app\models\bitrix\Bitrix;
 use Tightenco\Collect\Support\Collection;
@@ -15,13 +16,15 @@ class Report extends Model
 
         $companies = $this->getCompanies();
 
-        if (date('d') == 1 && !empty($companies['28'])) {
+        if (date('d') == 1 && !empty($companies['28']))
+        {
             $dateFrom = date('d.m.Y', strtotime('first day of previous month'));
             $dateTo = date('d.m.Y', strtotime('last day of previous month'));
 
             $students = $this->getStudents($companies['28'], $dateFrom, $dateTo);
 
-            foreach ($companies['28'] as $key => $company) {
+            foreach ($companies['28'] as $key => $company)
+            {
                 $text = "Рассрочка\n\n";
 
                 foreach ($students[$key]['installment'] as $student) {
@@ -33,7 +36,8 @@ class Report extends Model
 
                 $text .= "Эквайринг\n\n";
 
-                foreach ($students[$key]['acquiring'] as $student) {
+                foreach ($students[$key]['acquiring'] as $student)
+                {
                     $text .= "$student->secondName $student->name $student->lastName \n";
                     $text .= "Авторизовано договоров: $student->countWonDeal \n";
                     $text .= "Отказов клиента: $student->countLoseDeal \n";
@@ -42,6 +46,7 @@ class Report extends Model
 
                 $companyId = $company['ID'];
 
+                /*
                 $commandRow[] = $bitrix->buildCommand('bizproc.workflow.start', [
                     'TEMPLATE_ID' => 20,
                     'DOCUMENT_ID' => ['crm', 'CCrmDocumentCompany', "COMPANY_$companyId"],
@@ -49,9 +54,18 @@ class Report extends Model
                         'text' => $text
                     ]
                 ]);
+                */
+
+                if(!empty($company['UF_CRM_1683203303333']))
+                {
+                    $tgBot = TelegramBot::vashOtdel();
+                    $tgBot->sendMessage($company->telegramId, $text);
+                }
             }
         }
-        if (date('N') == 1 && !empty($companies['27'])) {
+
+        if (date('N') == 1 && !empty($companies['27']))
+        {
             $dateFrom = date('d.m.Y', strtotime('monday previous week'));
             $dateTo = date('d.m.Y', strtotime('sunday previous week'));
 
@@ -78,6 +92,7 @@ class Report extends Model
 
                 $companyId = $company['ID'];
 
+                /*
                 $commandRow[] = $bitrix->buildCommand('bizproc.workflow.start', [
                     'TEMPLATE_ID' => 20,
                     'DOCUMENT_ID' => ['crm', 'CCrmDocumentCompany', "COMPANY_$companyId"],
@@ -85,15 +100,25 @@ class Report extends Model
                         'text' => $text
                     ]
                 ]);
+                */
+
+                if(!empty($company['UF_CRM_1683203303333']))
+                {
+                    $tgBot = TelegramBot::vashOtdel();
+                    $tgBot->sendMessage($company->telegramId, $text);
+                }
             }
         }
-        if (!empty($companies['26'])) {
+
+        if (!empty($companies['26']))
+        {
             $dateFrom = date('d.m.Y', strtotime('-1 day'));
             $dateTo = date('d.m.Y', strtotime('-1 day'));
 
             $students = $this->getStudents($companies['26'], $dateFrom, $dateTo);
 
-            foreach ($companies['26'] as $key => $company) {
+            foreach ($companies['26'] as $key => $company)
+            {
                 $text = "Рассрочка\n\n";
 
                 foreach ($students[$key]['installment'] as $student) {
@@ -114,6 +139,7 @@ class Report extends Model
 
                 $companyId = $company['ID'];
 
+                /*
                 $commandRow[] = $bitrix->buildCommand('bizproc.workflow.start', [
                     'TEMPLATE_ID' => 20,
                     'DOCUMENT_ID' => ['crm', 'CCrmDocumentCompany', "COMPANY_$companyId"],
@@ -121,10 +147,18 @@ class Report extends Model
                         'text' => $text
                     ]
                 ]);
+                */
+
+                if(!empty($company['UF_CRM_1683203303333']))
+                {
+                    $tgBot = TelegramBot::vashOtdel();
+                    $tgBot->sendMessage($company->telegramId, $text);
+                }
             }
         }
 
-        if (!empty($commandRow)) {
+        if (!empty($commandRow))
+        {
             $commandRow = array_chunk($commandRow, 50);
 
             foreach ($commandRow as $key => $commands) {
