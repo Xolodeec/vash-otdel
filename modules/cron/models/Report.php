@@ -59,7 +59,7 @@ class Report extends Model
                 if(!empty($company['UF_CRM_1683203303333']))
                 {
                     $tgBot = TelegramBot::vashOtdel();
-                    $tgBot->sendMessage($company->telegramId, $text);
+                    $tgBot->sendMessage($company['UF_CRM_1683203303333'], $text);
                 }
             }
         }
@@ -105,7 +105,7 @@ class Report extends Model
                 if(!empty($company['UF_CRM_1683203303333']))
                 {
                     $tgBot = TelegramBot::vashOtdel();
-                    $tgBot->sendMessage($company->telegramId, $text);
+                    $tgBot->sendMessage($company['UF_CRM_1683203303333'], $text);
                 }
             }
         }
@@ -152,19 +152,19 @@ class Report extends Model
                 if(!empty($company['UF_CRM_1683203303333']))
                 {
                     $tgBot = TelegramBot::vashOtdel();
-                    $tgBot->sendMessage($company->telegramId, $text);
+                    $tgBot->sendMessage($company['UF_CRM_1683203303333'], $text);
                 }
             }
         }
 
-        if (!empty($commandRow))
-        {
-            $commandRow = array_chunk($commandRow, 50);
-
-            foreach ($commandRow as $key => $commands) {
-                $bitrix->batchRequest($commands);
-            }
-        }
+//        if (!empty($commandRow))
+//        {
+//            $commandRow = array_chunk($commandRow, 50);
+//
+//            foreach ($commandRow as $key => $commands) {
+//                $bitrix->batchRequest($commands);
+//            }
+//        }
     }
 
     public function getCompanies()
@@ -181,7 +181,7 @@ class Report extends Model
 
         for ($i=0; $i < $count; $i += 50) {
             $commandRow[] = $bitrix->buildCommand('crm.company.list', [
-                'select' => ['UF_CRM_1681908293'],
+                'select' => ['UF_CRM_1681908293', 'UF_CRM_1683203303333'],
                 'filter' => [
                     '!=UF_CRM_1681908293' => ['', 29]
                 ],
