@@ -7,6 +7,14 @@ $this->title = "Регистрация";
 
 ?>
 
+
+<?php if( Yii::$app->session->hasFlash('unsuccessful') ): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?php echo Yii::$app->session->getFlash('unsuccessful'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+    </div>
+<?php endif;?>
+
 <div class="wrapper-form shadow-sm rounded mb-4">
     <h4 class="mb-4 text-center text-uppercase">Регистрация</h4>
     <div class="alert alert-warning" role="alert">
@@ -17,7 +25,7 @@ $this->title = "Регистрация";
         'id' => 'sign-up-form',
         'fieldConfig' => [
             'enableClientValidation' => false,
-            'template' => "{input}{label}",
+            'template' => "{input}{label}{error}",
         ],
     ]) ?>
 

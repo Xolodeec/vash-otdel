@@ -137,8 +137,13 @@ class SignUpForm extends Model
 
         $message .= "<a href='https://lk.vashotdel.ru/login'>Войти</a>";
 
-        $tgBot = TelegramBot::vashOtdel();
-        $tgBot->sendMessage($this->telegramLogin, $message);
+        try {
+            $tgBot = TelegramBot::vashOtdel();
+            $tgBot->sendMessage($this->telegramLogin, $message);
+        }catch (\Exception $e)
+        {
+            return false;
+        }
 
         return $bitrix->batchRequest($commands->toArray());
     }
