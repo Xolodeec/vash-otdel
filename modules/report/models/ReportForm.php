@@ -92,7 +92,7 @@ class ReportForm extends Model
             ];
 
             $paramsDeal['filter']['>=DATE_CREATE'] = $model->dateFrom;
-            $paramsDeal['filter']['<=DATE_CREATE'] = $model->dateTo;
+            $paramsDeal['filter']['<=DATE_CREATE'] = date("d.m.Y 23:59", strtotime($model->dateTo));
 
             $commandRow[] = $bitrix->buildCommand('crm.deal.list', $paramsDeal);
         }
