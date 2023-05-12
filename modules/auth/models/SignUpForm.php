@@ -119,8 +119,6 @@ class SignUpForm extends Model
 
         $commands->put('company_add', $bitrix->buildCommand('crm.company.add', ['fields' => $company::getParamsField($company)]));
         $commands->put('requisite_add', $bitrix->buildCommand('crm.requisite.add', ['fields' => $requisite::getParamsField($requisite)]));
-
-        /*
         $commands->put('start_bizproc', $bitrix->buildCommand('bizproc.workflow.start', [
             'TEMPLATE_ID' => 19,
             'DOCUMENT_ID' => ['crm', 'CCrmDocumentCompany', '$result[company_add]'],
@@ -128,7 +126,6 @@ class SignUpForm extends Model
                 'password' => $password,
             ],
         ]));
-        */
 
         $message = "Вы успешно зарегистрированы!\n\n";
         $message .= "Логин: <code>{$this->phone}</code>\n";
