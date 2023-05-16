@@ -20,7 +20,3 @@ function unselectCompanyBx24()
     $("#reportform-companyid").val(null)
     $("#reportform-companyname").val(null)
 }
-
-$(document).ready(function (){
-    setSeparatorResponsible();
-});

@@ -213,41 +213,6 @@ $this->title = "Оформление заявки на рассрочку";
                     'only' => ['workNameCompany', 'workPhoneCompany', 'workCity', 'workStreet', 'workBuild', 'workPosition', 'amountMonthLastWork', 'salary'],
                 ],
             ],
-            /*
-            [
-                'model' => $model,
-                'title' => 'Шаг 5',
-                'description' => 'Add your shoots',
-                'formInfoText' => false,
-                'fieldConfig' => [
-                    'passportPhoto1' => [
-                        'options' => [
-                            'type' => 'file',
-                        ],
-                        'template' => '{label}{input}{error}',
-                    ],
-                    'passportPhoto2' => [
-                        'options' => [
-                            'type' => 'file',
-                        ],
-                        'template' => '{label}{input}',
-                    ],
-                    'passportPhoto3' => [
-                        'options' => [
-                            'type' => 'file',
-                        ],
-                        'template' => '{label}{input}',
-                    ],
-                    'passportPhoto4' => [
-                        'options' => [
-                            'type' => 'file',
-                        ],
-                        'template' => '{label}{input}',
-                    ],
-                    'only' => ['passportPhoto1', 'passportPhoto2', 'passportPhoto3', 'passportPhoto4'],
-                ],
-            ],
-            */
         ]
     ]);
     ?>

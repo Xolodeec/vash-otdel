@@ -25,6 +25,10 @@ class Student extends Contact
     public $workAddress;
     public $isRegistrationDataCompare;
     public $residentialAddress;
+    public $passportPhoto1;
+    public $passportPhoto2;
+    public $passportPhoto3;
+    public $passportPhoto4;
 
     public function rules()
     {
@@ -56,6 +60,10 @@ class Student extends Contact
         $fields->put('UF_CRM_1683134716507', 'workAddress');
         $fields->put('UF_CRM_1683135194616', 'isRegistrationDataCompare');
         $fields->put('UF_CRM_1683134237569', 'residentialAddress');
+        $fields->put('UF_CRM_1683038251200', 'passportPhoto1');
+        $fields->put('UF_CRM_1683039146535', 'passportPhoto2');
+        $fields->put('UF_CRM_1683039182748', 'passportPhoto3');
+        $fields->put('UF_CRM_1683039201688', 'passportPhoto4');
 
         return $fields->toArray();
     }

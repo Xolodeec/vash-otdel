@@ -38,10 +38,6 @@ class InstallmentForm extends OrderForm
     public $workPosition;
     public $amountMonthLastWork;
     public $salary;
-    public $passportPhoto1;
-    public $passportPhoto2;
-    public $passportPhoto3;
-    public $passportPhoto4;
 
     public function rules()
     {
@@ -53,7 +49,6 @@ class InstallmentForm extends OrderForm
         }]);
         $rules->push([['email', 'education', 'isChangeLastName', 'isMarried', 'registrationCity', 'registrationStreet', 'registrationBuild', 'isRegistrationDataCompare', 'workNameCompany', 'workPhoneCompany', 'workCity', 'workStreet', 'workBuild', 'workPosition', 'amountMonthLastWork', 'salary', 'countMonthInstallment', 'codeWord'], 'required']);
         $rules->push([['isChangeLastName', 'isMarried', 'isRegistrationDataCompare'], 'boolean']);
-        //$rules->push([['passportPhoto1', 'passportPhoto2', 'passportPhoto3', 'passportPhoto4'], 'file', 'skipOnEmpty' => false, 'checkExtensionByMimeType' => false, 'extensions' => 'png, jpg']);
         $rules->push([['fullNamePartner', 'birthdayPartner', 'fullNameContactPerson', 'phoneContactPerson'], 'required', 'when' => function($model){
             return $model->isMarried == 1;
         }]);
@@ -105,10 +100,6 @@ class InstallmentForm extends OrderForm
         $labels->put('workPosition', 'Должность');
         $labels->put('amountMonthLastWork', 'Кол-во мес. на последнем месте работы');
         $labels->put('salary', 'Ежемесячный доход');
-        $labels->put('passportPhoto1', 'Фото 2-3 странице паспорта в развороте');
-        $labels->put('passportPhoto2', 'Фото страницы паспорта с действующей регистрацией');
-        $labels->put('passportPhoto3', 'Сделайте селфи с паспортом');
-        $labels->put('passportPhoto4', 'Сделайте селфи с разворотом паспорта на странице 18-19');
         $labels->put('countMonthInstallment', 'Желаемый срок рассрочки, в месяцах');
         $labels->put('codeWord', 'Придумайте кодовое слово');
 
@@ -182,16 +173,5 @@ class InstallmentForm extends OrderForm
         $deal->opportunity = $this->priceProduct;
 
         return $deal;
-    }
-
-    public function upload()
-    {
-        if($this->validate())
-        {
-            $this->passportPhoto1->saveAs(\Yii::getAlias("@web") . "document/{$this->passportPhoto1->baseName}.{$this->passportPhoto1->extension}");
-            $this->passportPhoto2->saveAs(\Yii::getAlias("@web") . "document/{$this->passportPhoto2->baseName}.{$this->passportPhoto2->extension}");
-            $this->passportPhoto3->saveAs(\Yii::getAlias("@web") . "document/{$this->passportPhoto3->baseName}.{$this->passportPhoto3->extension}");
-            $this->passportPhoto4->saveAs(\Yii::getAlias("@web") . "document/{$this->passportPhoto4->baseName}.{$this->passportPhoto4->extension}");
-        }
     }
 }
