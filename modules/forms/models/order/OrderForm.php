@@ -27,7 +27,7 @@ class OrderForm extends Model
     {
         return [
             [['name', 'secondName', 'lastName'], 'string'],
-            [['name', 'lastName', 'phone', 'productId', 'priceProduct', /*'isAgree'*/], 'required'],
+            [['name', 'lastName', 'phone', 'productId', 'priceProduct', 'secondName', /*'isAgree'*/], 'required'],
             ['isAgree', 'compare', 'compareValue'=> 1, 'message' => ""],
             [['productId'], 'number'],
             //[['isAgree'], 'boolean'],

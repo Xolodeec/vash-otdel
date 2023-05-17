@@ -47,9 +47,9 @@ class InstallmentForm extends OrderForm
         $rules->push(['previousLastName', 'required', 'when' => function($model){
             return $model->isChangeLastName == 1;
         }]);
-        $rules->push([['email', 'education', 'isChangeLastName', 'isMarried', 'registrationCity', 'registrationStreet', 'registrationBuild', 'isRegistrationDataCompare', 'workNameCompany', 'workPhoneCompany', 'workCity', 'workStreet', 'workBuild', 'workPosition', 'amountMonthLastWork', 'salary', 'countMonthInstallment', 'codeWord'], 'required']);
+        $rules->push([['email', 'education', 'isChangeLastName', 'isMarried', 'registrationCity', 'registrationStreet', 'registrationBuild', 'isRegistrationDataCompare', 'workNameCompany', 'workPhoneCompany', 'workCity', 'workStreet', 'workBuild', 'workPosition', 'amountMonthLastWork', 'salary', 'countMonthInstallment', 'codeWord', 'fullNameContactPerson'], 'required']);
         $rules->push([['isChangeLastName', 'isMarried', 'isRegistrationDataCompare'], 'boolean']);
-        $rules->push([['fullNamePartner', 'birthdayPartner', 'fullNameContactPerson', 'phoneContactPerson'], 'required', 'when' => function($model){
+        $rules->push([['fullNamePartner', 'birthdayPartner', 'phoneContactPerson'], 'required', 'when' => function($model){
             return $model->isMarried == 1;
         }]);
         $rules->push([['residentialCity', 'residentialStreet', 'residentialBuild'], 'required', 'when' => function($model){

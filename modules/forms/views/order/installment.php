@@ -90,6 +90,9 @@ $this->title = "Оформление заявки на рассрочку";
                 'description' => 'Add your shoots',
                 'formInfoText' => false,
                 'fieldConfig' => [
+                    'fullNameContactPerson' => [
+                        'template' => '{input}{label}',
+                    ],
                     'isChangeLastName' => [
                         'template' => '{input}{label}',
                         'options' => [
@@ -121,9 +124,6 @@ $this->title = "Оформление заявки на рассрочку";
                             'language' => 'ru',
                         ],
                         'template' => '{label}{input}',
-                    ],
-                    'fullNameContactPerson' => [
-                        'template' => '{input}{label}',
                     ],
                     'phoneContactPerson' => [
                         'widget' => \yii\widgets\MaskedInput::class,
@@ -237,11 +237,11 @@ $this->title = "Оформление заявки на рассрочку";
                 
                     if($(this).val() == 1)
                     {
-                        $('.field-installmentform-fullnamepartner, .field-installmentform-fullnamecontactperson, .field-installmentform-birthdaypartner,  .field-installmentform-phonecontactperson').slideDown();
+                        $('.field-installmentform-fullnamepartner, .field-installmentform-birthdaypartner,  .field-installmentform-phonecontactperson').slideDown();
                     }
                     else
                     {
-                        $('.field-installmentform-fullnamepartner, .field-installmentform-fullnamecontactperson, .field-installmentform-birthdaypartner, .field-installmentform-phonecontactperson').slideUp();
+                        $('.field-installmentform-fullnamepartner, .field-installmentform-birthdaypartner, .field-installmentform-phonecontactperson').slideUp();
                     }
                     
                     console.log($(this).val());
@@ -268,7 +268,7 @@ $this->title = "Оформление заявки на рассрочку";
                 
                 if($('#installmentform-ismarried').val() != 1)
                 {
-                    $('.field-installmentform-fullnamepartner, .field-installmentform-birthdaypartner, .field-installmentform-fullnamecontactperson, .field-installmentform-phonecontactperson').slideUp();
+                    $('.field-installmentform-fullnamepartner, .field-installmentform-birthdaypartner, .field-installmentform-phonecontactperson').slideUp();
                 }
                 
                 if($('#installmentform-isregistrationdatacompare').val() == 1)
