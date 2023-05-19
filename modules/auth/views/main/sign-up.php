@@ -26,7 +26,6 @@ $this->title = "Регистрация";
         'mask' => '+7 (999) 999 99 99',
     ]); ?>
     <?= $form->field($model, 'email', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
-    <?= $form->field($model, 'telegramLogin', ['options' => ['class' => 'form-floating mb-3']])->textInput(); ?>
     <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary w-100']) ?>
     <?php $form::end() ?>
 </div>

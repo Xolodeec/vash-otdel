@@ -19,7 +19,7 @@ class SignUpForm extends Model
     public $ogrn;
     public $phone;
     public $email;
-    public $telegramLogin;
+    //public $telegramLogin;
     public $ogrnIp;
 
     public function rules()
@@ -27,16 +27,16 @@ class SignUpForm extends Model
         return [
             [['typeCompany'], 'number'],
             [['email'], 'email'],
-            [['titleCompany', 'inn', 'ogrn', 'phone', 'telegramLogin', 'ogrnIp'], 'string'],
-            [['titleCompany', 'inn', 'ogrn', 'phone', 'telegramLogin', 'ogrnIp'], 'filter', 'filter' => function($item){
+            [['titleCompany', 'inn', 'ogrn', 'phone', 'ogrnIp'], 'string'],
+            [['titleCompany', 'inn', 'ogrn', 'phone', 'ogrnIp'], 'filter', 'filter' => function($item){
                 return u($item)->trim()->toString();
             }],
             [['phone'], 'filter', 'filter' => function($item){
                 return preg_replace('/[^0-9+]/', '', $item);
             }],
-            ['telegramLogin', 'match', 'pattern' => '/^@[a-zA-ZА-Яа-я0-9\s]+$/u', 'message' => 'Логин телеграмма должен начинаться с @'],
+            //['telegramLogin', 'match', 'pattern' => '/^@[a-zA-ZА-Яа-я0-9\s]+$/u', 'message' => 'Логин телеграмма должен начинаться с @'],
             ['phone', 'validationPhone'],
-            [['typeCompany', 'titleCompany', 'phone', 'telegramLogin', 'email'], 'required', 'message' => 'Поле не может быть пустым'],
+            [['typeCompany', 'titleCompany', 'phone', 'email'], 'required', 'message' => 'Поле не может быть пустым'],
             ['inn', 'validationInn'],
             ['ogrn', 'validationOgrn'],
             ['ogrnIp', 'validationOgrnIp'],
@@ -105,7 +105,7 @@ class SignUpForm extends Model
         $company->title = $this->titleCompany;
         $company->phone[] = ['VALUE' => "$this->phone", 'TYPE' => 'WORK'];
         $company->email[] = ['VALUE' => "$this->email", 'TYPE' => 'WORK'];
-        $company->im[] = ['VALUE' => "$this->telegramLogin", 'VALUE_TYPE' => 'TELEGRAM'];
+        //$company->im[] = ['VALUE' => "$this->telegramLogin", 'VALUE_TYPE' => 'TELEGRAM'];
         $company->password = \Yii::$app->security->generatePasswordHash($password);
         $company->tokenReferral = md5("{$password}:{$uniqId}");
         $company->referralLinkInstallment = Yii::$app->request->hostInfo . "/forms/order/installment?token={$company->tokenReferral}";
