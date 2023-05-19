@@ -62,14 +62,11 @@ class MainController extends Controller
 
         if(\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post()) && $model->validate())
         {
-            if($model->save())
-            {
-                return $this->redirect('login');
-            }
-            else
-            {
-                Yii::$app->session->setFlash('unsuccessful', 'Неправильно указан телеграм ID, или вы не присоединились к нашему чат-боту');
-            }
+            $model->save();
+
+            Yii::$app->session->setFlash('success', 'Вы успешно зарегистрированы. Данные для входа отправлены на вашу почту.');
+
+            return $this->redirect('login');
         }
 
         return $this->render('sign-up', ['model' => $model, 'presets' => $presets]);
@@ -82,6 +79,8 @@ class MainController extends Controller
         if(\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post()) && $model->validate())
         {
             $model->reset();
+
+            Yii::$app->session->setFlash('success', 'Пароль успешно сброшен. Данные для входа отправлены на вашу почту.');
 
             return $this->redirect('login');
         }

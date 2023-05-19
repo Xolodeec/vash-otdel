@@ -18,6 +18,7 @@ class SignUpForm extends Model
     public $inn;
     public $ogrn;
     public $phone;
+    public $email;
     public $telegramLogin;
     public $ogrnIp;
 
@@ -25,6 +26,7 @@ class SignUpForm extends Model
     {
         return [
             [['typeCompany'], 'number'],
+            [['email'], 'email'],
             [['titleCompany', 'inn', 'ogrn', 'phone', 'telegramLogin', 'ogrnIp'], 'string'],
             [['titleCompany', 'inn', 'ogrn', 'phone', 'telegramLogin', 'ogrnIp'], 'filter', 'filter' => function($item){
                 return u($item)->trim()->toString();
@@ -32,9 +34,9 @@ class SignUpForm extends Model
             [['phone'], 'filter', 'filter' => function($item){
                 return preg_replace('/[^0-9+]/', '', $item);
             }],
-            ['telegramLogin', 'match', 'pattern' => '/^[0-9\s]+$/u', 'message' => 'Телеграм ID может состоять только из цифр'],
+            ['telegramLogin', 'match', 'pattern' => '/^@[a-zA-ZА-Яа-я0-9\s]+$/u', 'message' => 'Логин телеграмма должен начинаться с @'],
             ['phone', 'validationPhone'],
-            [['typeCompany', 'titleCompany', 'phone', 'telegramLogin'], 'required', 'message' => 'Поле не может быть пустым'],
+            [['typeCompany', 'titleCompany', 'phone', 'telegramLogin', 'email'], 'required', 'message' => 'Поле не может быть пустым'],
             ['inn', 'validationInn'],
             ['ogrn', 'validationOgrn'],
             ['ogrnIp', 'validationOgrnIp'],
@@ -102,7 +104,8 @@ class SignUpForm extends Model
         $company = new School();
         $company->title = $this->titleCompany;
         $company->phone[] = ['VALUE' => "$this->phone", 'TYPE' => 'WORK'];
-        $company->telegramId = $this->telegramLogin;
+        $company->email[] = ['VALUE' => "$this->email", 'TYPE' => 'WORK'];
+        $company->im[] = ['VALUE' => "$this->telegramLogin", 'VALUE_TYPE' => 'TELEGRAM'];
         $company->password = \Yii::$app->security->generatePasswordHash($password);
         $company->tokenReferral = md5("{$password}:{$uniqId}");
         $company->referralLinkInstallment = Yii::$app->request->hostInfo . "/forms/order/installment?token={$company->tokenReferral}";
@@ -120,13 +123,14 @@ class SignUpForm extends Model
         $commands->put('company_add', $bitrix->buildCommand('crm.company.add', ['fields' => $company::getParamsField($company)]));
         $commands->put('requisite_add', $bitrix->buildCommand('crm.requisite.add', ['fields' => $requisite::getParamsField($requisite)]));
         $commands->put('start_bizproc', $bitrix->buildCommand('bizproc.workflow.start', [
-            'TEMPLATE_ID' => 19,
+            'TEMPLATE_ID' => 21,
             'DOCUMENT_ID' => ['crm', 'CCrmDocumentCompany', '$result[company_add]'],
             'PARAMETERS' => [
                 'password' => $password,
             ],
         ]));
 
+        /*
         $message = "Вы успешно зарегистрированы!\n\n";
         $message .= "Логин: <code>{$this->phone}</code>\n";
         $message .= "Пароль: <code>{$password}</code>\n\n";
@@ -141,7 +145,8 @@ class SignUpForm extends Model
         {
             return false;
         }
-
+        */
+        
         return $bitrix->batchRequest($commands->toArray());
     }
 }

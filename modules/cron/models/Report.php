@@ -45,8 +45,8 @@ class Report extends Model
                 }
 
                 $companyId = $company['ID'];
+                
 
-                /*
                 $commandRow[] = $bitrix->buildCommand('bizproc.workflow.start', [
                     'TEMPLATE_ID' => 20,
                     'DOCUMENT_ID' => ['crm', 'CCrmDocumentCompany', "COMPANY_$companyId"],
@@ -54,13 +54,14 @@ class Report extends Model
                         'text' => $text
                     ]
                 ]);
-                */
 
+                /*
                 if(!empty($company['UF_CRM_1683203303333']))
                 {
                     $tgBot = TelegramBot::vashOtdel();
                     $tgBot->sendMessage($company['UF_CRM_1683203303333'], $text);
                 }
+                */
             }
         }
 
@@ -92,7 +93,7 @@ class Report extends Model
 
                 $companyId = $company['ID'];
 
-                /*
+
                 $commandRow[] = $bitrix->buildCommand('bizproc.workflow.start', [
                     'TEMPLATE_ID' => 20,
                     'DOCUMENT_ID' => ['crm', 'CCrmDocumentCompany', "COMPANY_$companyId"],
@@ -100,13 +101,14 @@ class Report extends Model
                         'text' => $text
                     ]
                 ]);
-                */
 
+                /*
                 if(!empty($company['UF_CRM_1683203303333']))
                 {
                     $tgBot = TelegramBot::vashOtdel();
                     $tgBot->sendMessage($company['UF_CRM_1683203303333'], $text);
                 }
+                */
             }
         }
 
@@ -139,7 +141,6 @@ class Report extends Model
 
                 $companyId = $company['ID'];
 
-                /*
                 $commandRow[] = $bitrix->buildCommand('bizproc.workflow.start', [
                     'TEMPLATE_ID' => 20,
                     'DOCUMENT_ID' => ['crm', 'CCrmDocumentCompany', "COMPANY_$companyId"],
@@ -147,24 +148,25 @@ class Report extends Model
                         'text' => $text
                     ]
                 ]);
-                */
 
+                /*
                 if(!empty($company['UF_CRM_1683203303333']))
                 {
                     $tgBot = TelegramBot::vashOtdel();
                     $tgBot->sendMessage($company['UF_CRM_1683203303333'], $text);
                 }
+                */
             }
         }
 
-//        if (!empty($commandRow))
-//        {
-//            $commandRow = array_chunk($commandRow, 50);
-//
-//            foreach ($commandRow as $key => $commands) {
-//                $bitrix->batchRequest($commands);
-//            }
-//        }
+       if (!empty($commandRow))
+        {
+           $commandRow = array_chunk($commandRow, 50);
+
+            foreach ($commandRow as $key => $commands) {
+                $bitrix->batchRequest($commands);
+            }
+        }
     }
 
     public function getCompanies()

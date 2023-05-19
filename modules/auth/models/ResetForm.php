@@ -62,7 +62,7 @@ class ResetForm extends Model
             ],
         ]));
 
-
+        /*
         $message = "Пароль успешно сброшен!\n\n";
         $message .= "Логин: <code>{$this->phone}</code>\n";
         $message .= "Пароль: <code>{$password}</code>\n\n";
@@ -72,6 +72,7 @@ class ResetForm extends Model
 
         $tgBot = TelegramBot::vashOtdel();
         $tgBot->sendMessage($company->telegramId, $message);
+        */
 
         return $bitrix->batchRequest($commands->toArray());
     }

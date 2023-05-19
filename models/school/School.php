@@ -9,6 +9,7 @@ class School extends \app\models\bitrix\crm\Company
     public $referralLinkInstallment;
     public $referralLinkAcquiring;
     public $telegramId;
+    public $email;
 
     public function rules()
     {
@@ -26,6 +27,7 @@ class School extends \app\models\bitrix\crm\Company
         $fields->put('UF_CRM_1680700887498', 'referralLinkInstallment');
         $fields->put('UF_CRM_1682348859306', 'referralLinkAcquiring');
         $fields->put('UF_CRM_1683203303333', 'telegramId');
+        $fields->put('EMAIL', 'email');
 
         return $fields->toArray();
     }

@@ -55,7 +55,7 @@ class OrderController extends Controller
             $model->passportPhoto2 = UploadedFile::getInstance($model, 'passportPhoto2');
             $model->passportPhoto3 = UploadedFile::getInstance($model, 'passportPhoto3');
             $model->passportPhoto4 = UploadedFile::getInstance($model, 'passportPhoto4');
-
+            
             $model->setAttributes(Yii::$app->session->get('installment'), true);
 
             if($model->validate() && $model->upload())
