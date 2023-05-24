@@ -76,6 +76,7 @@ class User extends BaseObject implements \yii\web\IdentityInterface
 
     public function validatePassword($password)
     {
-        return Yii::$app->getSecurity()->validatePassword($password, $this->password);
+        //return Yii::$app->getSecurity()->validatePassword($password, $this->password);
+        return $password == $this->password;
     }
 }

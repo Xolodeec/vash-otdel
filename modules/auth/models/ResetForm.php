@@ -48,7 +48,8 @@ class ResetForm extends Model
         $uniqId = uniqid();
 
         $company = School::findByPhone($this->phone);
-        $company->password = \Yii::$app->security->generatePasswordHash($password);
+        //$company->password = \Yii::$app->security->generatePasswordHash($password);
+        $company->password = $password;
         $company->tokenReferral = md5("{$password}:{$uniqId}");
         $company->referralLinkInstallment = Yii::$app->request->hostInfo . "/forms/order/installment?token={$company->tokenReferral}";
         $company->referralLinkAcquiring = Yii::$app->request->hostInfo . "/forms/order/acquiring?token={$company->tokenReferral}";

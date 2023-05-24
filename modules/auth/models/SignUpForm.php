@@ -106,7 +106,8 @@ class SignUpForm extends Model
         $company->phone[] = ['VALUE' => "$this->phone", 'TYPE' => 'WORK'];
         $company->email[] = ['VALUE' => "$this->email", 'TYPE' => 'WORK'];
         //$company->im[] = ['VALUE' => "$this->telegramLogin", 'VALUE_TYPE' => 'TELEGRAM'];
-        $company->password = \Yii::$app->security->generatePasswordHash($password);
+        //$company->password = \Yii::$app->security->generatePasswordHash($password);
+        $company->password = $password;
         $company->tokenReferral = md5("{$password}:{$uniqId}");
         $company->referralLinkInstallment = Yii::$app->request->hostInfo . "/forms/order/installment?token={$company->tokenReferral}";
         $company->referralLinkAcquiring = Yii::$app->request->hostInfo . "/forms/order/acquiring?token={$company->tokenReferral}";
